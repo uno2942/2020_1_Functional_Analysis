@@ -1,0 +1,313 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+
+\usepackage{physics}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW1}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1.5}
+
+\begin{proof}[Solution]
+First, $\mathscr{H}$ is a vector space over $\varmathbb{F}$ since for $f,g\in \mathscr{H}$,
+\begin{enumerate}
+    \item $(f+g)(0) = 0$.
+    \item $(f+g)^{(k)}(t)$ exists for all $t$ in $[0,1]$ for $1\leq k \leq n-1$
+    \item $(f+g)^{(n-1)}$ is absolutely continuous and $(f+g)^{(n)}\in L^2(0,1)$ as $L^2(0,1)$ is a Hilbert space.
+\end{enumerate}
+Also, the inner product is well-defined since 
+\begin{enumerate}
+    \item For $\alpha,\beta\in \varmathbb{F}$, and $f,g,h\in \mathscr{H}$,
+    \begin{equation}
+    \begin{split}
+        \langle \alpha f + \beta g, h\rangle &= \sum\limits_{k=1}^n \int_0^1 (\alpha f + \beta g)^{(k)}(t)\overline{h^{(k)}(t)}dt \\
+        &= \alpha\sum\limits_{k=1}^n \int_0^1 f^{(k)}(t)\overline{h^{(k)}(t)}dt + \beta\sum\limits_{k=1}^n \int_0^1 g^{(k)}(t)\overline{h^{(k)}(t)}dt \\
+        &=\alpha \langle f, h\rangle + \beta\langle g,h\rangle,
+        \end{split}
+    \end{equation}
+    and it applies for $\langle f, \alpha g+\beta h\rangle = \overline{\alpha}\langle f,  g\rangle+\overline{\beta}\langle f, h\rangle$ for the same reason.
+    \item For $f\in \mathscr{H}$, 
+    \begin{equation}
+        \langle f,f\rangle = \sum\limits_{k=1}^n \int_0^1 \abs{f^{(k)}(t)}^2dt\geq 0
+    \end{equation}
+    \item For $f, g\in \mathscr{H}$, \begin{equation}
+    \begin{split}
+        \langle f,g\rangle &= \sum\limits_{k=1}^n \int_0^1 f^{(k)}(t)\overline{g^{(k)}(t)}dt \\
+        &= \overline{\sum\limits_{k=1}^n\int_0^1 g^{(k)}(t)\overline{f^{(k)}(t)}dt} \\
+        &= \overline{ \langle g,f\rangle}
+        \end{split}
+    \end{equation}
+    \item If $f$ or $g$ equals to $0$, then $\langle f,g\rangle = 0$.
+    \item If $\langle f,f\rangle = 0$, then $\sum\limits_{k=1}^n \int_0^1 \abs{f^{(k)}(t)}^2dt = 0$ and it means $f'(t) = 0$ for all $t\in[0,1]$. Since $f(0) = 0$, $f(t)=0$ for $t\in[0,1]$. 
+\end{enumerate}
+Now, let's show that $\mathscr{H}$ is a complete space by the metric induced by the inner product.
+
+I'll prove that for each $1\leq k<n$, $f^{(k)}_i$ is a uniformly Cauchy sequences, i.e. for any $\epsilon>0$, there exists $N$ such that for any $n,m>N$, $\abs{f^{(k)}_n-f^{(k)}_m}<\epsilon$. To prove it, I'll show that $\sup\limits_{x} \abs{f^{(k)}_n(x)-f^{(k)}_m(x)}\rightarrow 0$ as $n,m\rightarrow \infty$. Assume it is not for some $k$, then there exists $\delta>0$ such that for any $N\in \varmathbb{N}$, there exists $n,m>N$ and $x_0$ such that $\abs{f^{(k)}_n(x_0)-f^{(k)}_m(x_0)}>\delta$. Since $\int_0^1 \abs{f^{(k)}_n(x)-f^{(k)}_m(x)}\rightarrow 0$ in Cauchy sense, there exists $N$ such that $\int_0^1 \abs{f^{(k)}_n(x)-f^{(k)}_m(x)}<\delta/10$ if $n,m>N$. Also, it implies that there exists $x_1$ such that $\abs{f^{(k)}_n(x_1)-f^{(k)}_m(x_1)}<\delta/10$ since if not, the integral value can not be smaller than $\delta/10$.
+
+Now, fix $\delta>0$ and choose $N$ satisfying $\int_0^1 \abs{f^{(k)}_n(x)-f^{(k)}_m(x)}<\delta/10$ and $\int_0^1 \abs{f^{(k+1)}_n(x)-f^{(k+1)}_m(x)}<\delta/10$ for $n,m>N$. Choose $n,m$ and $x_0$ such that $\abs{f^{(k)}_n(x_0)-f^{(k)}_m(x_0)}>\delta$ and choose $x_1$ for such $n,m$ that $\abs{f^{(k)}_n(x_1)-f^{(k)}_m(x_1)}<\delta/10$. Then,
+\begin{equation}
+   \delta/10>\abs{\int_{x_0}^{x_1} f^{(k+1)}_n(t)-f^{(k+1)}_m(t)dt} =  \abs{(f^{(k)}_n(x_1) - f^{(k)}_m(x_1))-(f^{(k)}_n(x_0) - f^{(k)}_m(x_0))}\geq \frac{9}{10}\delta,
+\end{equation}
+which is contradition. Therefore, $f^{(k)}_i$ is uniformly Cauchy for each $1\leq k<N$, so there exists a limit point $f^{(k)}$, and the sequence is uniformly convergent for each $k$. 
+
+Now, I need to show that $f\in \mathscr{H}$, i.e., the upper case $(k)$ really represents the derivative of $f$ by $k$ times and some other properties.
+\begin{enumerate}
+    \item $f(0) = 0$ since $f_i\rightarrow f$ uniformly on $[0,1]$.
+    \item Since $f_i^{(k)}$ are uniformly convergent sequence on compact interval for $0\leq k\leq n-1$, $(f^{(k-1)})' = f^{(k)}$ for $1\leq k\leq n-1$. Also, uniformly convergence implies continuity on $[0,1]$. Also, $f^{(n)}$ exists in $L^2$ limit since $L^2$ is a Hilbert space.
+    \item To show absolute continuity of $f^{(n-1)}$, I'll first prove that for any $0\leq s<t\leq 1$,
+    \begin{equation}
+        \int_s^t f_i^{(n)}\rightarrow\int_s^t f^{(n)}
+    \end{equation}
+    as $i\rightarrow \infty$. It can be shown by the inequality:
+    \begin{equation}
+        \abs{\abs{\int_s^t f_i^{(n)}}-\abs{\int_s^t f^{(n)}}}\leq \int_s^t \abs{f_i^{(n)} - f^{(n)}}.
+    \end{equation}
+    Therefore, for any $\epsilon>0$, there exists $N$ such that $\int_0^1 \abs{f_i^{(n)} - f^{(n)}}<\epsilon/2$ and exists $\delta>0$ such that $\int_E \abs{f^{(n)}}<\epsilon/2$ for $m(E)<\delta$ as $f^{(n)}\in L^2\subset L^1$. It implies
+    \begin{equation}
+        \sum_{j=0}^m\abs{f_i^{(n-1)}(b_j)-f_i^{(n-1)}(a_j)}\leq \int_{\cup_{j=0}^m I_j} \abs{f_i^{(n)}}\leq \int_0^1 \abs{f_i^{(n)} - f^{(n)}} + \int_{\cup_{j=0}^m I_j} \abs{f^{(n)}}<\epsilon
+    \end{equation}
+    for finite collection of intervals $\cup_{j=0}^m I_j = \cup_{j=0}^m (a_j,b_j)$ whose total length less than $\delta$. Hence, $f^{(n-1)}$ is absolutely continuous by taking $i\rightarrow \infty$. Also,
+    \begin{equation}
+        \lim\limits_{i\rightarrow \infty} f_i^{(n-1)}(t)-f_i^{(n-1)}(s) =  \lim\limits_{i\rightarrow \infty}\int_s^t f_i^{(n)}=\int_s^t f^{(n)},
+    \end{equation}
+    so it verifies $\left(f^{(n-1)}\right)' = f^{(n)}$ a.e.
+\end{enumerate}
+Therefore, $\mathscr{H}$ is a Hilbert space.
+\end{proof}
+
+\noindent \textbf{1.7}
+
+\begin{proof}[Solution]
+I'll prove the existence step by step.
+\begin{enumerate}
+    \item Existence of $\mathscr{K}$ as a vector space: Since $\varmathbb{C}$ can be viewed as $\varmathbb{R}+\varmathbb{R}i$, for each $v\in\mathscr{H}$, we can give a natural action of $a_1+a_2i\in\varmathbb{C}$ on $v\in\mathscr{H}$ by $(a_1+a_2i)\cdot v = (a_1\cdot v) + (a_2\cdot v)i$. Let's define $\mathscr{K}$ as
+    \begin{equation}
+        \mathscr{K}\coloneqq \left\{v_1 + i v_2~|~v_1,v_2\in\mathscr{H}, v_1+iv_2 = v'_1+iv'_2 \textrm{ iff }v_1=v'_1 \textrm{ and }v_2=v'_2\right\}
+    \end{equation}
+    with 
+    \begin{enumerate}
+        \item The binary operation $+$ on $(v_1 + i v_2), (w_1 + i w_2)\in\mathscr{K}$ is defined by
+        \begin{equation}
+            (v_1 + i v_2) + (w_1 + i w_2) \coloneqq (v_1 + w_1) + i(v_2 + w_2).
+        \end{equation}
+        \item The action of $\alpha=a_1+a_2i\in\varmathbb{C}$ on $k=v_1 + i v_2\in\mathscr{K}$ by
+        \begin{equation}
+            \alpha\cdot k \coloneqq (a_1\cdot v_1-a_2\cdot v_2)+i(a_2\cdot v_1+a_1\cdot v_2).
+        \end{equation}
+    \end{enumerate}
+    
+    From now on, I'll abbreviate the action $\alpha\cdot v$ by $\alpha v$. I need to show that $\mathscr{K}$ is a vector space over $\varmathbb{C}$. It is easy to see that $\mathscr{K}$ is a abelian group about $+$ and it is a vector space on $\varmathbb{C}$ by the structure of $\mathscr{H}$ on $\varmathbb{R}$.
+    
+    \item Existence of inner product and completeness: for inner product $\langle \cdot,\cdot\rangle_{\mathscr{H}}$, let's define the inner product on $\mathscr{K}$ by
+    \begin{equation}
+        \langle v_1 + i v_2,w_1 + i w_2\rangle_{\mathscr{K}} = \langle v_1,w_1\rangle + \langle v_2,w_2\rangle + i\left(\langle v_2 ,w_1\rangle -\langle v_1,w_2\rangle\right)
+    \end{equation}
+    for $a_1,a_2,b_1,b_2\in \varmathbb{R}$ and $v_1,v_2,w_1,w_2\in \mathscr{H}$. Then, for $\alpha=a_1+ia_2, \beta=b_1+ib_2\in\varmathbb{C}$, $k_1=v_1+iv_2,k_2=w_1+iw_2, z=u_1+iu_2\in \mathscr{K}$,
+    \begin{enumerate}
+        \item \begin{equation}
+        \begin{split}
+            \langle \alpha k_1+\beta k_2, z\rangle &= \langle (a_1+ia_2)(v_1+iv_2)+ (b_1+ib_2)(w_1+iw_2), u_1+iu_2\rangle \\
+            &= \langle (a_1v_1-a_2v_2+b_1w_1-b_2w_2)+i(a_2v_1+a_1v_2+b_2w_1+b_1w_2), u_1+iu_2\rangle \\
+            &= \langle a_1v_1-a_2v_2+b_1w_1-b_2w_2, u_1\rangle + \langle a_2v_1+a_1v_2+b_2w_1+b_1w_2, u_2\rangle \\
+            &\phantom{=} +i\left( \langle a_2v_1+a_1v_2+b_2w_1+b_1w_2, u_1\rangle -\langle a_1v_1-a_2v_2+b_1w_1-b_2w_2,u_2\rangle 
+            \right) \\
+            &=\langle a_1v_1-a_2v_2, u_1\rangle + \langle a_2v_1+a_1v_2, u_2\rangle +i\left( \langle a_2v_1+a_1v_2, u_1\rangle -\langle a_1v_1-a_2v_2,u_2\rangle \right)\\
+            &\phantom{=} +\langle b_1w_1-b_2w_2, u_1\rangle + \langle b_2w_1+b_1w_2, u_2\rangle + i\left( \langle b_2w_1+b_1w_2, u_1\rangle -\langle b_1w_1-b_2w_2,u_2\rangle \right) \\
+            &= \langle \alpha k_1, z\rangle + \langle \beta k_2,z\rangle.
+        \end{split}
+        \end{equation}
+        \item 
+        \begin{equation}
+        \begin{split}
+            \overline{\langle k_1,k_2\rangle} &= \overline{\langle v_1+iv_2, w_1+iw_2\rangle} \\
+            &=\overline{\langle v_1,w_1\rangle + \langle v_2,w_2\rangle + i\left(\langle v_2 ,w_1\rangle -\langle v_1,w_2\rangle\right)} \\
+            &= \langle w_1,v_1\rangle + \langle w_2,v_2\rangle + i\left(\langle w_2,v_1\rangle - \langle w_1 ,v_2\rangle \right) \\
+            &=\langle k_2, k_1\rangle.
+        \end{split}
+        \end{equation}
+        Furthermore, the above equality implies
+        \begin{equation}
+            \langle z, \alpha k_1+\beta k_2\rangle = \overline{\langle \alpha k_1+\beta k_2, z\rangle} = \overline{\langle \alpha k_1, z\rangle} + \overline{\langle \beta k_2,z\rangle} = \overline{\alpha}\langle z,k_1\rangle + \overline{\beta}\langle z, k_2\rangle.
+        \end{equation}
+        \item \begin{equation}
+            \langle k_1, k_1\rangle = \langle v_1+iv_2, v_1+iv_2\rangle = \langle v_1, v_1\rangle + \langle v_2, v_2\rangle + i\left(\langle v_2, v_1\rangle - \langle v_1, v_2\rangle\right)
+        \end{equation}
+        Since, $\mathscr{H}$ is over $\varmathbb{R}$, $\langle v_1,v_2\rangle\in \varmathbb{R}$, so $\langle v_1, v_2\rangle= \langle v_2, v_1\rangle$, and
+        \begin{equation}
+            \langle k_1, k_1\rangle = \langle v_1, v_1\rangle + \langle v_2, v_2\rangle\geq 0
+        \end{equation}
+        and $0$ if $v_1=v_2=0$, i.e. $k_1=0$.
+    \end{enumerate}
+    \item Existence of a map $U:\mathscr{H}\rightarrow\mathscr{K}$ with the properties: From the construction of $\mathscr{K}$, we can construct a homomorphism $U$ as follows: for each Hamel basis of $\mathscr{H}$ $v_\alpha$, $\alpha\in \Lambda$,
+    \begin{equation}
+        U(a v_\alpha) = a v_\alpha + 0i
+    \end{equation}
+    for each $a\in \varmathbb{R}$. This is indeed linear, and for any $k\in\mathscr{K}$, if $k=Uh_1+iUh_2 = Uh'_1+iUh'_2$ for $h_1,h_2,h'_1,h'_2\in \mathscr{H}$, then $U(h_1-h'_1)-iU(h_2-h'_2) = 0$, and $U(h_1-h'_1)=0$ and $U(h_2-h'_2)=0$ since the image of $U$ does not have imaginary part, so $h_1=h'_1$ and $h_2=h'_2$ in $\mathscr{H}$. Therefore, for any $k\in\mathscr{K}$, there are unique $h_1,h_2\in\mathscr{H}$ such that $k=Uh_1+iUh_2$. (The existence of such $h_1,h_2$ is by definition of $\mathscr{K}$.)
+    
+    The norm-preserving property is easy to see: if two vectors in $\mathscr{K}$ do not have complex term, then the inner product in $\mathscr{K}$ is same as $\mathscr{H}$, and the vectors having no complex term is the image of $U$ in $\mathscr{K}$.
+\end{enumerate}
+\end{proof}
+
+\noindent \textbf{2.4}
+
+\begin{proof}[Solution]%%%%%%%%
+\begin{enumerate}
+    \item[(a)]Since $0$ is contained in all closed linear subspaces, $0\in\vee A$ and $\vee A\neq \phi$. Since $\vee A$ is formed by intersection of closed sets, $\vee A$ is closed. Also, for any $\alpha\in \varmathbb{F}$, if $a\in \vee A$, $\alpha a$ is in all closed subspaces, so $\alpha a\in \vee A$. By the same reason, if $a_1,a_2\in \vee A$, $a_1+a_2\in \vee A$, so $\vee A$ is a closed linear subspace. If it is not the smallest one, so there exists another closed linear subspace $B$, such that $B\subsetneqq A$, then $0\in A\cap B \subset A$ since $A$ is constructed by intersection of all closed linear subspaces, which is contradiction. Therefore, $A$ is the smallest one.
+    \item[(b)]By the definition of closure, the closure of $S=\{\sum_{k=1}^n \alpha_k f_k:n\geq 1, \alpha_k\in \varmathbb{F}, f_k\in A\}$, which I'll denote by $\overline{S}$, is the smallest closed set containing $S$. I need to show that this is a linear subspace of $\mathscr{H}$, then it is same as $\vee A$.
+
+If $v_1,v_2\in S$, then $v_1+v_2$ and $\alpha v_1$ are again in $S$ for any $\alpha$, so assume $v_1,v_2$ is in the $\overline{S}\setminus S$, then there exist sequences in $S$ such that
+\begin{equation}
+    \begin{split}
+        \sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k}&\rightarrow v_1 \\
+        \sum_{k=1}^{m_{i}} \beta_{i, k} g_{i, k}&\rightarrow v_2
+    \end{split}
+\end{equation}
+\begin{claim}
+$v_1+v_2$ and $\alpha v_1$ are in the $\overline{S}$ for any $\alpha$.
+\end{claim}
+\begin{claimproof}
+For $\alpha v_1$ case, it is trivial since 
+\begin{equation}
+\begin{split}
+        \norm{v_1-\sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k}}&\rightarrow 0 \\
+        &\Rightarrow \norm{\alpha v_1-\sum_{k=1}^{n_{i}} \alpha \alpha_{i, k} f_{i, k}} = \abs{\alpha}\norm{v_1-\sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k}}\rightarrow 0
+\end{split}
+\end{equation}
+For $v_1+v_2$ cases, construct a sequence $\sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k} + \sum_{k=1}^{m_{i}} \beta_{i, k} g_{i, k}$, then for given $\epsilon$, there exists $M$ such that for $i>M$,
+\begin{equation}
+    \begin{split}
+        \norm{v_1 - \sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k}}&<\epsilon/2 \\
+        \norm{v_2-\sum_{k=1}^{m_{i}} \beta_{i, k} g_{i, k}}&<\epsilon/2
+    \end{split}
+\end{equation}
+, so
+\begin{equation}
+        \norm{v_1+v_2-\sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k}-\sum_{k=1}^{m_{i}} \beta_{i, k} g_{i, k}}\leq   \norm{v_1 - \sum_{k=1}^{n_{i}} \alpha_{i, k} f_{i, k}} +  \norm{v_2-\sum_{k=1}^{m_{i}} \beta_{i, k} g_{i, k}}<\epsilon.
+\end{equation}
+\end{claimproof}
+Therefore, the $\vee A \subset \overline{S}$.
+Conversely, choose an element $v$ from the $\overline{S}$. If $v\in S$, then $v\in \vee A$ as a finite linear span of $A$, so let's assume that $v\in \overline{S}\setminus S$. Then, there is a sequence which converges to $v$ in $S$. Since any element in $S$ is a finite linear span of elements in $A$, it should be contained in $\vee A$. Since $\mathcal{H}$ is a Hausdorff, the limit point is unique in $\mathcal{H}$, and $v\in \vee A$ as $\vee A$ is a closed space. Therefore, $\overline{S} \subset \vee A$. 
+
+(Note that $\vee A$ can be strictly bigger than $\{\sum_{k=1}^n \alpha_k f_k:n\geq 1, \alpha_k\in \varmathbb{F}, f_k\in A\}$. For example, if $\mathscr{H} = \varmathbb{R}^2$ and $A=(n,m)$, $n,m\in\varmathbb{Z}$, then $\vee A = \mathscr{H}$, but another can not.)
+\end{enumerate}
+\end{proof}
+
+\noindent \textbf{4.16}
+
+\begin{proof}[Solution]
+Assume there is an orthonormal Hamel basis for $\mathscr{H}$: $\{e_\alpha\}_{\alpha\in\Lambda}$.
+
+Since it is a basis of infinite dimensional Hilbert space, the cardinality of the set is not less than $\aleph_0$, so we can choose a countably infinite subset $\{e_{\alpha_i}\}$, which is orthonormal. Take an element $h = \sum_{n=1}^\infty \frac{1}{n^2}e_{\alpha_n}$, then the element in $\mathscr{H}$ since $\mathscr{H}$ is complete. Since $\{e_\alpha\}$ is a Hamel basis, $h=\sum_{k=1}^m b_k e_{\beta_k}$ for some $m\in \varmathbb{N}$. Now, we can divide the cases and derive a contradiction. For each $\beta_k$,
+\begin{enumerate}
+    \item If $e_{\beta_k} = e_{\alpha_l}$ for some $l$, then $b_k = \langle \sum_{n=1}^\infty \frac{1}{n^2}e_{\alpha_n}, e_{\beta_k}\rangle = 1/l^2$
+    \item If $e_{\beta_k}\notin \{e_{\alpha_i}\}$, then $b_k = \langle \sum_{n=1}^\infty \frac{1}{n^2}e_{\alpha_n}, e_{\beta_k}\rangle = 0$.
+\end{enumerate}
+
+Therefore, if we subtract two presentations of $h$, we get $0 = $ (sum of countably infinite non-zero orthogonal terms), which is contradiction. Therefore, There is no orthnormal Hamel basis.
+
+Let's assume Hamel basis is countable, and Enumerate the basis by $h_n$. Then by the Gram-Schmidt orthogonalization process, there exists an orthonormal set $\{e_n\}$ such that for all $n$, the linear space of $\{e_1, \ldots, e_n\}$ equals the linear span of $\{h_1, \ldots, h_n\}$. Now, take an element $h = \sum_{n=1}^\infty \frac{1}{n^2}e_n$. Since $\mathscr{H}$ is complete, the element in $\mathscr{H}$. Algebraically it can not be generated by the Hamel basis: if it can, then there exists finite sum $h=\sum_{k=1}^m \alpha_k h_{n_k}$, and it has an another presentations using finite $e_i$'s. It means, however, $0$ can be written as countably infinite non-zero terms which are orthogonal to each others. Therefore, it is a contradiction, and Hamel basis should be uncountable.
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

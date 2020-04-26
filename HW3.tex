@@ -1,0 +1,218 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW3}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1.5}
+
+\begin{proof}[Solution]
+($\Leftarrow$) Since $\chi_A^2 = \chi_A$, $M_{\chi_A} = M_{\chi_A}^2$.
+
+($\Rightarrow$) Assume $M_\phi^2 = M_\phi$. For any $f\in L^2$, $\phi(\phi f - f) = 0$ is well-defined since $\phi\in L^\infty$ and $\mu(\{x:\abs{f(x)} = \infty\}) = 0$. On the set $A = \{x:\phi(x)\neq 0\}$, $\phi f - f = (\phi - 1)f = 0$ for all $f\in L^2$. Since $\mu$ is $\sigma$-finite measure, if $\phi\neq 1$ on $B$ with $0<\mu(B)$, there exists $f = \chi_C$ such that $C\subset B$ $0<\mu(C)<\infty$ making $(\phi-1)f\neq 0$ on the set. Therefore $\phi = 1$ a.e. on $A$, and $\phi = \chi_A$.
+\end{proof}
+
+\noindent \textbf{1.9}
+
+\begin{proof}[Solution]
+Let's define a function $A$ from $l^2(\varmathbb{N})$ to $\overline{\varmathbb{F}}^{\varmathbb{N}}$, which is the extended system such that if $\varmathbb{F} = \varmathbb{R}$, then it is a extended real system, and if $\varmathbb{F} = \varmathbb{C}$, then it is the Riemann sphere, by
+\begin{equation}
+    A\left(\sum_{i=1}^\infty a_i e_i\right) = \sum_{i=1}^\infty \left(\sum_{j=1}^\infty \alpha_{ij}a_j\right) e_i
+\end{equation}
+This is linear since for any $c\in \varmathbb{F}$, $\sum_{i=1}^\infty a_i e_i$, $\sum_{i=1}^\infty b_i e_i\in l^2(\varmathbb{N})$,
+\begin{equation}
+\begin{split}
+    A\left(c\sum_{i=1}^\infty a_i e_i + \sum_{i=1}^\infty b_i e_i\right) &= A\left(\sum_{i=1}^\infty (ca_i+b_i) e_i\right)\\
+    &=\sum_{i=1}^\infty \left(\sum_{j=1}^\infty \alpha_{ij}(ca_j+b_j)\right) e_i \\
+    &=\sum_{i=1}^\infty \left(\sum_{j=1}^\infty \alpha_{ij}(ca_j)\right) e_i + \sum_{i=1}^\infty \left(\sum_{j=1}^\infty \alpha_{ij}b_j\right) e_i \\
+    &= cA\left(\sum_{i=1}^\infty a_i e_i\right) + A\left(\sum_{i=1}^\infty b_i e_i\right)
+\end{split}
+\end{equation}
+if it is guaranteed that $\alpha_{ij}a_j$ absolutely converges for each $i$ for any $(a_j)_{j\in \varmathbb{N}}\in l^2(\varmathbb{N})$. Before showing this, I'll show that $\norm{A}^2\leq \beta\gamma$. For $x = \sum_{i=1}^\infty a_i e_i\in l^2(\varmathbb{N})$,
+\begin{equation}
+\begin{split}
+       \langle Ax, Ax\rangle &\leq  \sum_i\abs{\sum_{j} \abs{\alpha_{ij}a_j}}^2 = \sum_i\abs{\sum_{j} \sqrt{p_j}\sqrt{\alpha_{ij}}\sqrt{\alpha_{ij}}\frac{\abs{a_j}}{\sqrt{p_j}}}^2\leq \sum_i \left(\left(\sum_{j} p_j\alpha_{ij}\right)\left(\sum_{j} \alpha_{ij}\frac{\abs{a_j}^2}{p_j}\right)\right) \\
+       &\leq \sum_i \gamma p_i \left(\sum_{j} \alpha_{ij}\frac{\abs{a_j}^2}{p_j}\right) = \sum_j \gamma \frac{\abs{a_j}^2}{p_j} \left(\sum_{i} p_i\alpha_{ij}\right)\leq \sum_j \gamma \frac{\abs{a_j}^2}{p_j} \beta p_j = \beta\gamma \sum_j\abs{a_j}^2.
+\end{split}
+\end{equation}
+The commutativity of summation is followed since all the summands are positive. Therefore, $\norm{A}^2\leq \beta\gamma $ and $\sum_{i}\sum_{j} \abs{\alpha_{ij}a_j} < \infty$. Thus, this proves $A$ is a bounded linear operator on $l^2(\varmathbb{N})$.
+\end{proof}
+
+\noindent \textbf{2.7}
+
+\begin{proof}[Solution]
+
+Note that $k(x,y)+k(y,x) = 1$ a.e. since $\{(x,y):x<y\}$ has measure $1/2$. ($k$ is the function in the example 1.7.) Therefore,
+\begin{equation}
+\begin{split}
+    \langle V^*f, g \rangle = \langle f, Vg \rangle &= \int_0^1 f(x)\int_0^1 k(x,y)\overline{g(y)} dy dx\\
+    &=\int_0^1 \int_0^1 f(x)k(x,y)\overline{g(y)} dy dx \\
+    &= \int_0^1 \int_0^1 f(x)(1-k(y,x))\overline{g(y)} dy dx \\
+    &= \int_0^1 \int_0^1 f(x)\overline{g(y)} dy dx - \int_0^1 \overline{g(x)}\int_0^1 k(x,y)f(y) dy dx \\
+    &= \langle \int_0^1 f(x) dx, g\rangle - \langle Vf, g\rangle.
+\end{split}
+\end{equation}
+(In the derivation, I used Fubini's theorem since $f(x),g(y)\in L^1(0,1)$, $k\in L^\infty(0,1)$.) Therefore, $V^* f = \int_0^1 f(x)dx - Vf$ for $f\in L^2$.
+
+For any $f\in L^2$, $(V+V^*)f = \int_0^1 f(x) dx$. Therefore, $\ran (V+V^*) = \varmathbb{F}$. (For surjectivity, we can set $f(x) = c\chi_{(0,1)}$, so $(V+V^*)f = c$ for any $c\in \varmathbb{F}$.)
+\end{proof}
+
+\noindent \textbf{2.12}
+
+\begin{proof}[Solution]
+Let's define a sesquilinear form $u$ by
+\begin{equation}
+    u(f,g) = \sum_{n=0}^\infty \alpha_n \langle A^n f, g\rangle.
+\end{equation}
+for $f,g\in \mathscr{H}$. This is well-defined since
+\begin{equation}
+    \sum_{n=0}^\infty \abs{\alpha_n} \abs{\langle A^n f, g\rangle}\leq  \norm{f}\norm{g}\sum_{n=0}^\infty \abs{\alpha_n} \norm{A}^n<\infty
+\end{equation}
+since $\norm{A}<R$. The sequence absolutely converges for any $f,g\in \mathscr{H}$, and the sesquilinear property is given by the property of inner-product and absolute convergence. Therefore, it is well-defined; moreover, it is bounded by $\sum_{n=0}^\infty \alpha_n \norm{A}^n$. Hence, there exists the unique bounded operator $T$ such that
+\begin{equation}
+    \langle Tf, g\rangle = \sum_{n=0}^\infty \alpha_n \langle A^n f, g\rangle.
+\end{equation}
+\end{proof}
+
+\noindent \textbf{2.16}
+
+\begin{proof}[Solution]
+If $\mu\left(\{x:\phi(x)=0\}\right) = 0$, then $\phi f = 0$ for $f\in L^2$ implies that $f = 0$ a.e. Therefore, $\ker M_{\phi}=0$. Conversely, if $\mu\left(\{x:\phi(x)=0\}\right) >0$, then $\phi \chi_{\{x:\phi(x)=0\}} = 0$, so $\ker M_{\phi}\neq 0$.
+
+For next problem, I'll prove the following proposition:
+\begin{proposition}
+For $\sigma$-finite measure $\mu$, $1/\phi \in L^\infty$ if and only if $\ran M_{\phi}$ is closed.
+\end{proposition}
+\begin{proof}
+First, I'll justify the notion of $1/\phi$. Let's set $E=\{x:\phi(x)\neq 0\}$, and define $(1/\phi)'$ by 
+\begin{equation}
+    (1/\phi)' \coloneqq\begin{cases}
+    1/\phi(x) & \textrm{if }x\in E\\
+    0 & \textrm{if }x\in E^c
+    \end{cases}
+\end{equation}
+For convenience, I'll fix $1/\pm \infty = 0$. This is valid definition since for any $f\in \ran M_{\phi}$, $f = 0$ on $E^c$, so we can define $M^{-1}_{\phi}(f) = (1/\phi)'f\chi_{E} = (1/\phi)'f$. Let's define $1/\phi$ by $(1/\phi)'$.
+
+For $\Rightarrow$, it is easy since if $g_i\rightarrow g$ in $L^2$ and $\{g_i\}\subset \ran M_{\phi}$, then $g$ is $0$ on $E^c$, and $(1/\phi)g\in L^2$. Therefore $g\in \ran M_{\phi}$.
+
+Now, assume $\ran M_{\phi}$ is closed. I'll show that if $1/\phi \notin L^\infty$, it makes a contradiction.
+
+Assume $1/\phi \notin L^\infty$, and let $F_n = \{x:2^{n-1}< \abs{1/\phi(x)}\leq 2^n\}$ for $n\in \varmathbb{N}$. Then $F_n$ are disjoint measurable set. Also, $\cup_{n=N}^\infty F_n$ is non-measure zero for any $N$. Using $\sigma$-finite property, for each $F_n$, if is is not null set, choose a finite measure set. Let's denote the collection of the sets $\{F'_{n_i}\}$. This is possible since $\mu(\{x:\abs{1/\phi(x)}=\infty\}) = 0$ by the construction of $1/\phi(x)$. (In other words, if there is no infinite sequence such that $\mu(F_{n_i})>0$, then it contradicts $1/\phi\notin L^\infty$ or $\mu(\cap_{M=1}^\infty \{x:\abs{1/\phi(x)}>M\}) = 0$.)
+
+Now, construct $f_j = \sum_{i=1}^j \frac{1}{2^{n_i} \sqrt{\mu(F'_{n_i})}}\chi_{F'_{n_i}}$ and $f = \sum_{i=1}^\infty \frac{1}{2^{n_i} \sqrt{\mu(F'_{n_i})}}\chi_{F'_{n_i}}$. It is obvious that $f_i\rightarrow f$ a.e. and each $f_j$ and $f$ is in $L^2$.
+Also, $(1/\phi) f_j \in L^2$, so $f_j\in \ran M_{\phi}$. If $\ran M_{\phi}$ were closed set, $f\in \ran M_{\phi}$, but
+\begin{equation}
+    \abs{(1/\phi) f} \geq\sum_{j=1}^\infty \frac{1}{2\sqrt{\mu(F'_j)}}\chi_{F'_j},
+\end{equation}
+so $(1/\phi) f\notin L^2$ and $f\notin \ran M_{\phi}$. Therefore, $\ran M_{\phi}$ is not closed and it is a contradiction.
+\end{proof}
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

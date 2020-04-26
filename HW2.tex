@@ -1,0 +1,223 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW2}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{4.19}
+
+\begin{proof}[Solution]
+Assume $\dim\mathscr{H}=\infty$ and choose an countably infinite sequence in orthonormal basis: denote the collection by $E=\{e_k:k\in\varmathbb{N}\}$ taking enumeration by $\varmathbb{N}$. Since $S=\{h\in\mathscr{H}:~\norm{h}\leq 1\}$ is compact, it is sequentially compact, so $E$ must have subsequence $\{e_{k_i}\}$ converges to some point $e$. However, for any subsequences in $E$, the norm $\norm{e_i-e_j}=\sqrt{2}$ for $i\neq j$, so it is not a Cauchy-sequence. Therefore, any subsequence can not have limit point. It proves $\dim \mathscr{H}<\infty$.
+\end{proof}
+
+\noindent \textbf{5.4}
+
+\begin{proof}[Solution]
+I'll prove it step by step.
+\begin{enumerate}
+    \item $U$ is an isomorphism: First, let's show $U$ is a linear surjection. For surjectivity, it is easy since for any $f\in L^2(0,1)$, $F(x)=\int_0^t f(y) dy$ is absolutely continuous, $F(0)=1$ and $F'=f$ a.e. It is lienar since for any $\alpha,\beta\in \varmathbb{F}$ and $f,g\in\mathscr{H}$, $U(\alpha f+\beta g) = \alpha f'+\beta g' = \alpha U(f)+\beta U(g)$. Finally, $U$ conserves norm since
+    \begin{equation}
+        \langle Uf, Ug \rangle_{L^2(0,1)} = \int_0^1 f'\overline{g'} dx = \langle f, g \rangle_{\mathscr{H}}
+    \end{equation}
+    for all $f,g\in \mathscr{H}$. Therefore, $\mathscr{H}$ and $L^2(0,1)$ are isomorphic.
+    \item Find a formula for $U^{-1}$: For any $f\in L^2(0,1)\subset L^1(0,1)$, set $U^{-1}(f)(x) = \int_0^x f(t) dt$. Then, $U^{-1}(f)$ is absolutely continuous, $U^{-1}(f)(0) = 0$, and $\left(U^{-1}(f)\right)'\in L^2$ since it is equivalent to $f$ a.e.
+\end{enumerate}
+\end{proof}
+
+\noindent \textbf{5.5}
+
+\begin{proof}[Solution]
+Let's show it part by part.
+\begin{enumerate}
+    \item[$\Leftarrow$] Assume $\abs{u(x)} = 1$ a.e. $[\mu]$. Let $E = \{x\in X:~\abs{u(x)})=1\}$, then $\mu(E^c) = 0$. Computing norm, we get
+    \begin{equation}
+        \int_X Uf\overline{Uf}d\mu = \int_X uf\overline{uf}d\mu = \int_X \abs{u}^2 f\overline{f}d\mu = \int_E f\overline{f}d\mu + \int_{E^c} \abs{u}^2 f\overline{f}d\mu = \int_X f\overline{f}d\mu.
+    \end{equation}
+    Therefore, $Uf = uf$ is an isometry.
+    \item[$\Rightarrow$] Assume $Uf = uf$ is an isometry and assume $\abs{u(x)}\neq 1$ on non-measure zero set. Then, there exists $n\in \varmathbb{N}$ such that $\abs{\abs{u}^2-1}>1/n$ on non-measure zero set $E$. WLOG, I'll assume that $\abs{u}^2-1>1/n$ on non-measure 0 set $E_1\subset E$, otherwise, we can set $1-\abs{u}^2 > 1/n$. Then, by choosing $f=\chi_{E_1}$,
+    \begin{equation}
+        \abs{\int_X Uf\overline{Uf}d\mu - \int_X f\overline{f}d\mu} = \abs{\int_{E_1} (\abs{u}^2-1)f\overline{f}d\mu + \int_{E_1^c} (\abs{u}^2-1)f\overline{f}d\mu}\geq \frac{1}{n}\abs{\mu(E_1)}.
+    \end{equation}
+    Therefore, we get a contradiction.
+\end{enumerate}
+$U$ is surjection if $\abs{u(x)} = 1$ a.e. $[\mu]$ for $f\in L^2(X,\Omega,\mu)$, $U(\overline{u}f) = \abs{u}^2f = f$ a.e., so identical in $L^2(X,\Omega,\mu)$.
+\end{proof}
+
+\noindent \textbf{HW 1 in Lecure Note 1}
+
+\begin{proof}[Solution]
+Since $\mathscr{H}$ is a metric space, sequential compactness is equivalent to compactness, so I'll prove sequential compactness. Assume there exists an sequence $\{a_n\}\subset Q$. Let $\pi_i (x) = \langle x, u_i\rangle$ for $x\in Q$. Since a closed interval is compact in $\varmathbb{R}$, $\pi_1(a_n)$ have a subsequence $\pi_1(a_{n,1})$ converges to some point $c_1$. Repeat this process for $a_{n,1}$ for $\pi_2$, then we get $\{a_{n,2}\}\subset \{a_{n,1}\}$ such that $\pi_2(a_{n,2})\rightarrow c_2\in \varmathbb{R}$ and $\pi_m(a_{n,m})\rightarrow c_m$. Repeat it and generate $\{a_{n,m+1}\}\subset \{a_{n,m}\}$ for $m\in\varmathbb{N}$. Let's write each sequences as below.
+
+\begin{alignat*}{6}
+& a_{1,1} & \;& a_{2,1} &\;& a_{3,1} &\;& a_{4,1} &\;& a_{5,1} &\;& \ldots \\
+& a_{1,2} &\; & a_{2,2} &\;& a_{3,2} &\;& a_{4,2} &\;& a_{5,2} &\;& \ldots \\
+& a_{1,3} &\; & a_{2,3} &\;& a_{3,3} &\;& a_{4,3} &\;& a_{5,3} &\;& \ldots \\
+& a_{1,4} &\; & a_{2,4} &\;& a_{3,4} &\;& a_{4,4} &\;& a_{5,4} &\;& \ldots \\
+& a_{1,5} &\; & a_{2,5} &\;& a_{3,5} &\;& a_{4,5} &\;& a_{5,5} &\;& \ldots \\
+& \vdots &\; & \vdots &\;& \vdots &\;& \vdots &\;& \vdots &\;& \ddots
+\end{alignat*}
+Now, take a subsequence of $\{a_n\}$ by $b_{n} = a_{n, n}$. I'll show that this is a Cauchy-sequence in $\mathscr{H}$. For given $\epsilon>0$, there exists $N_1$ such that $\sum_{i=N_1}^\infty 4/i^2<\epsilon/2$. This bound will work for bounding the sum of coefficients above $m$th coordinate in $Q$. Also, there exists $N_2\geq N_1$ such that $\abs{\pi_m(a_{i,m})-\pi_m(a_{j,m})}^2<\epsilon/2N_1$ for $m\leq N_1$ and $i,j>N_2$. For such $N_2$, we get the inequality that for $i,j>N_2$,
+\begin{equation}
+\begin{split}
+  \norm{b_i-b_j}&= \sum_{m=1}^{N_1} \abs{\pi_m(a_{i,i})-\pi_m(a_{j,j})}^2 + \sum_{m=N_1+1}^\infty \abs{\pi_m(a_{i,i})-\pi_m(a_{j,j})}^2 \\
+  &\leq \sum_{m=1}^{N_1}  \abs{\pi_m(a_{f_m(i),m})-\pi_m(a_{f_m(j),m})}^2 + \sum_{m=N_1+1}^\infty \frac{4}{m^2} \\
+  &\leq \epsilon/2 + \epsilon/2 = \epsilon,
+\end{split}
+\end{equation}
+where $f_m(i)$ for each $m\leq i$ is a function indicating the index of $a_{i,i}$ at $m$th subsequences, i.e. $a_{i,i} = a_{f_m(i), m}$. This is possible since $\{a_{n,m+1}\}\subset \{a_{n,m}\}$ for $m\in\varmathbb{N}$. Moreover, $f_m(i)\geq i$ since $m\leq i$, so for $i,j>N_2$, $f_m(i)>N_2$. Therefore, $\{b_i\}$ is a Cauchy sequence in $\mathscr{H}$ and have a limit point: let the point $c$. By the construction of the subsequence, $\pi_m(c) = c_m\in [-1/m, 1/m]$ for $m\in \varmathbb{N}$, so $c\in Q$.
+\end{proof}
+
+\noindent \textbf{HW 2 in Lecure Note 1}
+
+\begin{proof}[Solution]
+Let's compute the minimal value using derivative about $a,b,c$. (To write the equations easily, I reversed the sign of each $a,b,c$.)
+
+\begin{equation}
+\begin{split}
+    F(a,b,c) &= \int_{-1}^1 \abs{x^3+cx^2+bx+a}^2 dx \\
+    &=  \int_{-1}^1 x^6+2cx^5+(c^2+2b)x^4+(2bc+2a)x^3+(b^2+2ac)x^2+2bax+a^2 dx \\
+    &=2\left(\frac{1}{7}+\frac{c^2+2b}{5} + \frac{b^2+2ac}{3} + a^2 \right),
+\end{split}
+\end{equation}
+so
+\begin{equation}
+\begin{split}
+    \partial_a F &= 2\left(\frac{2c}{3} + 2a\right) \\
+    \partial_b F &= 2\left(\frac{2}{5} + \frac{2b}{3}\right) \\
+    \partial_c F &= 2\left(\frac{2c}{5} + \frac{2a}{3}\right).
+\end{split}
+\end{equation}
+
+The only solution making all partial derivatives $0$ is $a=c=0$, $b=-3/5$. The minimum value is $\frac{8}{175}$.
+
+To find the maximum of $\int_{-1}^1 x^3 g(x) dx$, I'll use a variation of Legendre polynomial. I'll assume the FACT that legendre polynomial forms a basis for $L_{\varmathbb{R}}^2(0,1)$, which is the $L^2$ space for real valued function. (In another way, we can use Stone-Weierstrass theorem to show that polynomial function set is dense in $C[0,1]$, and $C_c[0,1]$ is dense in $L_{\varmathbb{R}}^1(0,1)\supset L_{\varmathbb{R}}^2(0,1)$. Therefore, we can take $\{1,x, x^2, \ldots\}$ as a linearly independent subset of $L_{\varmathbb{R}}^2(0,1)$ with properties that its span forms a dense subset of it. Using Gram-Schmidt Orthogonalization Process, we get orthonormal set in $L_{\varmathbb{R}}^2(0,1)$. Furthermore, its closed linear span is same as $L_{\varmathbb{R}}^2(0,1)$, so it forms a basis of $L_{\varmathbb{R}}^2(0,1)$. This process again generates the same polynomials as below.)
+
+Let's choose four polynomials from front:
+\begin{equation}
+    \begin{split}
+        L_0 &= \frac{1}{\sqrt{2}}\\
+        L_1 &= \sqrt{\frac{3}{2}}x \\
+        L_2 &= \sqrt{\frac{5}{8}}(3x^2-1) \\
+        L_3 &= \sqrt{\frac{7}{8}}(5x^3-3x)
+    \end{split}
+\end{equation}
+Each $L_i$ $0\leq i\leq 3$ is orthonormal to each other, so,
+\begin{equation}
+\begin{split}
+    \int_{-1}^1 x^3 g(x)dx &= \left\langle g(x),\frac{1}{5}\left(\sqrt{\frac{8}{7}} L_3 + 3 \sqrt{\frac{2}{3}}L_1\right)\right\rangle \\
+    &= \frac{2\sqrt{2}}{5\sqrt{7}}\left\langle g(x),L_3\right\rangle + \frac{3\sqrt{2}}{5\sqrt{3}}\left\langle g(x),L_1\right\rangle \\
+    &= \frac{2\sqrt{2}}{5\sqrt{7}}\left\langle g(x),L_3\right\rangle
+\end{split}
+\end{equation}
+When $g(x)=L^3$, the integral value is maximized, so $g(x) = \sqrt{\frac{7}{8}}(5x^3-3x)$, and the maximum value is $\frac{2\sqrt{2}}{5\sqrt{7}}$.
+
+Let's again compute the first problem. Since it is the norm of a monic polynomial, the multiple of $L_3$ generates the minimum value, and it would be $\frac{8}{175}$ when $a=c=0, b=-\frac{3}{5}$.
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
