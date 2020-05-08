@@ -1,0 +1,295 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+    \usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+    \usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+    \DeclareGraphicsExtensions{.pdf,.png,.jpg}
+    \usepackage{fancyhdr}
+    \usepackage[shortlabels]{enumitem}
+    \usepackage[pdfmenubar=true, pdfborder  ={0 0 0 [3 3]}]{hyperref}
+    \usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+    %Page layout
+    \addtolength{\hoffset}{-50pt}
+    \addtolength{\headheight}{+10pt}
+    \addtolength{\textwidth}{+75pt}
+    \addtolength{\voffset}{-50pt}
+    \addtolength{\textheight}{+75pt}
+    \newcommand{\Space}{1em}
+    \newcommand{\Vspace}{\vspace{\Space}}
+    \newcommand{\ran}{\textrm{ran }}
+    \setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+    \newtheoremstyle{Mytheorem}%
+    {1em}{1em}%
+    {\slshape}{}%
+    {\bfseries}{.}%
+    { }{}
+
+    \newtheoremstyle{Mydefinition}%
+    {1em}{1em}%
+    {}{}%
+    {\bfseries}{.}%
+    { }{}
+
+    \theoremstyle{Mydefinition}
+    \newtheorem{statement}{Statement}
+    \newtheorem{definition}[statement]{Definition}
+    \newtheorem{definitions}[statement]{Definitions}
+    \newtheorem{remark}[statement]{Remark}
+    \newtheorem{remarks}[statement]{Remarks}
+    \newtheorem{example}[statement]{Example}
+    \newtheorem{examples}[statement]{Examples}
+    \newtheorem{question}[statement]{Question}
+    \newtheorem{questions}[statement]{Questions}
+    \newtheorem{problem}[statement]{Problem}
+    \newtheorem{exercise}{Exercise}[section]
+    \newtheorem*{comment*}{Comment}
+    %\newtheorem{exercise}{Exercise}[subsection]
+
+    \theoremstyle{Mytheorem}
+    \newtheorem{theorem}[statement]{Theorem}
+    \newtheorem{corollary}[statement]{Corollary}
+    \newtheorem{corollaries}[statement]{Corollaries}
+    \newtheorem{proposition}[statement]{Proposition}
+    \newtheorem{lemma}[statement]{Lemma}
+    \newtheorem{claim}{Claim}
+    \newtheorem{claimproof}{Proof of claim}[claim]
+    \newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+    \fancypagestyle{myfency}{%Plain
+    \fancyhf{}
+    \fancyhead[L]{}
+    \fancyhead[C]{}
+    \fancyhead[R]{}
+    \fancyfoot[L]{}
+    \fancyfoot[C]{}
+    \fancyfoot[R]{\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}}
+
+    \fancypagestyle{myfirstpage}{%Firstpage
+    \fancyhf{}
+    \fancyhead[L]{}
+    \fancyhead[C]{}
+    \fancyhead[R]{}
+    \fancyfoot[L]{}
+    \fancyfoot[C]{}
+    \fancyfoot[R]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}}
+
+    \pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+    \Large{Functional Analysis MID}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1}
+\begin{proof}
+\begin{enumerate}
+    \item[(a)] No. Assume $E$ is a Hilbert space with some inner-product $\langle \cdot, \cdot \rangle$ satisfying $\norm{f} =\max_{x\in[0,1]}\abs{f}$, then it should satisfies the parallelogram law, but for $f,g$ such that
+    \begin{equation}
+        f(x) = \begin{cases}
+        5 & 0\leq x\leq 1/3\\
+        -4 & 2/3\leq x\leq 1\\
+        \textrm{linear} & 1/3\leq x\leq 2/3
+        \end{cases}
+    \end{equation}
+    \begin{equation}
+        g(x) =
+        \begin{cases}
+        -3 & 0\leq x\leq 1/3 \\
+        7 & 2/3\leq x\leq 1\\
+        \textrm{linear} & 1/3\leq x\leq 2/3
+        \end{cases}
+    \end{equation}
+    Then $\norm{f+g}^2+\norm{f-g}^2 = 3^2 + 11^2 = 130$, but $2(\norm{f}^2+\norm{g}^2) = 2(5^2+7^2) = 148$. Therefore, $E$ can not be a Hilbert space for any inner-product.
+    \item[(b)] No. Let's set $h_n$ by
+    \begin{equation}
+        h_n(x) = \begin{cases}
+        0 & 0\leq x\leq \frac{1}{2}-\frac{1}{2^{n+1}}\\
+        2^{n+1}\left(x-\frac{1}{2}+\frac{1}{2^{n+1}}\right) & \frac{1}{2}-\frac{1}{2^{n+1}}\leq x\leq \frac{1}{2}\\
+        1 & \frac{1}{2}\leq x\leq 1
+        \end{cases}
+    \end{equation}
+    and set $f_n(x) = \int_0^x h_n(t) dt$. Then, for $n<m$, we get
+    \begin{equation}
+        \norm{f_n-f_m} = \int_0^1 \abs{h_n(t)-h_m(t)}^2 dt \leq \frac{1}{2^n}
+    \end{equation}
+    since $\abs{h_n}<1$ for all $n$ and the difference exists only on $\left( \frac{1}{2}-\frac{1}{2^{n+1}}, \frac{1}{2}\right)$. Therefore, for large $N$, $\norm{f_n-f_m}$ is small for all $n,m>N$, and have a limit point $f$ if $F$ is a Hilbert space. If $f'(x)\neq 0$ at $x<1/2 - 1/2^N$ for some $N$, then for $n>N$, $\abs{f'(x) - h_n(x)}>0$ and as a continuous function, there exists $\epsilon>0$ such that $\int_0^1 \abs{h_n(t)-f'(t)}^2 dt>\epsilon$ for all $n>N$. Therefore, $f'(x) = 0$ for $x<1/2$. By the same reason, $f'(x) = 1$ on $x>1/2$, but it generates discontinuity at $x=1/2$. Therefore, there is no limit point for such $f_n$ and $F$ is not a Hilbert space.
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+\noindent \textbf{2}
+\begin{proof}
+\begin{enumerate}
+    \item[(a)] I'll denote $e_n$ be the element with $1$ on $n$th coordinate and $0$ elsewhere, which is a basis of $l^2$, and $x_i = \langle x, e_i\rangle$. For $\lambda\neq 0$, 
+    \begin{equation}\label{eq:1}
+        (T-\lambda I)x = (x_2-\lambda x_1, x_3-\lambda x_2, \ldots),
+    \end{equation}
+    so, $T-\lambda I$ maps $h_n = \sum_{i=1}^n -\frac{1}{\lambda^{n-i+1}}e_i$ to $e_n$. If $\abs{\lambda}\leq 1$, $\sum_{i=1}^n \frac{1}{\abs{\lambda}^{2i}} \rightarrow \infty$ as $n\rightarrow \infty$, so regardless the existence of the inverse, the inverse is not a bounded operator, so is not invertible. 
+    
+    If $\abs{\lambda}>1$, the norm of $h_n$ is bounded by $\sum_{i=1}^\infty \abs{\lambda}^{-i}<\infty$. Now, I'll show that $T^{-1}$ exists. 
+    First, $T$ is injective because $\norm{T}=1$, so for any $x\neq 0$,
+    \begin{equation}
+        \abs{\langle Tx, x\rangle} \leq \langle \norm{T}x, x\rangle < \langle \abs{\lambda}x, x\rangle = \abs{\langle \lambda x, x\rangle}.
+    \end{equation}
+    It shows that $0<\abs{\langle (\lambda I - T)x, x\rangle}$ and $\ker (T-\lambda I) = 0$.
+
+    For any $y = \sum_{i=1}^\infty c_i e_i$, set $x = \sum_{i=1}^\infty c_i h_i$, As $\norm{x} = \norm{\sum_{i=1}^\infty c_i h_i}\leq \norm{c_i}\cdot\norm{h_i}\leq \norm{y}\sum_{i=1}^\infty \frac{1}{\abs{\lambda}^i}$, the sum absolutely converges, so $x$ is an element in $l^2$, so $(T-\lambda I)x = y$. Therefore, $T$ is surjective. It also shows that $T$ is bounded since
+    \begin{equation}
+        \norm{T\frac{x}{\norm{x}}} = \frac{\norm{y}}{\norm{x}}\leq \left(\sum_{i=1}^\infty \frac{1}{\abs{\lambda}^i}\right)^{-1}.
+    \end{equation}    
+    Therefore, $\sigma(T) = \{\lambda: \abs{\lambda}\leq 1\}$.
+
+    \item[(b)] It is easy to see that all eigenvalues of $T$ is contained in $\sigma(T)$. If $0<\abs{\lambda}<1$, we get
+    \begin{equation}
+        (T-\lambda I) (1, \lambda, \lambda^2, \lambda^3, \ldots) = 0,
+    \end{equation}
+    so $\lambda$ is an eigenvalue. 
+    
+    If $\abs{\lambda} = 1$, then $(1, \lambda, \lambda^2, \lambda^3, \ldots)$ is not an element in $l^2$, so I need a more delicate argument. Now, assume $x\in \ker (T-\lambda I)$. If $x_1\neq 0$, then by \eqref{eq:1}, x = $x_1(1, \lambda, \lambda^2, \ldots)$, which is not an element of $l^2$. Therefore, $x_1=0$ and applying it to further $x_i$, we get $x = 0$. Therefore, eigenvalues of $T$ is the set $\{\lambda:0<\abs{\lambda}<1\}$ as $0$ is not considered as eigenvalue.
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+\noindent \textbf{3}
+\begin{proof}
+Set $f(x)$ be
+\begin{equation}
+    f(x) = \begin{cases}
+    \pi & \abs{x}\leq 1\\
+    0 & \abs{x}>1
+    \end{cases}
+\end{equation}
+Then it is $L^2(-\infty, \infty)$. For any natural number $N$, $\{\frac{1}{\sqrt{2N\pi}}, \frac{1}{\sqrt{N\pi}}\cos \frac{n}{N}x, \frac{1}{\sqrt{N\pi}}\sin \frac{n}{N}x:1\leq n<\infty\}$ is a basis for $L^2[-N\pi, N\pi]$ since for $N=1$, it is a basis for $L^2[-\pi, \pi]$ and scaling by $\frac{1}{N}$ generates the corresponding basis for $L^2[-N\pi, N\pi]$. As $f\in L^2[-N\pi, N\pi]$, computing the inner-products,
+\begin{equation}
+    \begin{split}
+        \left\langle f, \frac{1}{\sqrt{2N\pi}}\right\rangle & = \int_{-1}^1 \pi \frac{1}{\sqrt{2N\pi}} dx = \sqrt{\frac{2\pi}{N}} \\
+        \left\langle f, \frac{1}{\sqrt{N\pi}}\cos \frac{n}{N}x\right\rangle & = \int_{-1}^1 \pi \frac{1}{\sqrt{N\pi}}\cos \frac{n}{N}x ~dx = 2\sqrt{\frac{\pi}{N}} \frac{\sin\left(\frac{n}{N}\right)}{\frac{n}{N}} \\
+        \left\langle f, \frac{1}{\sqrt{N\pi}}\sin \frac{n}{N}x\right\rangle & = \int_{-1}^1 \pi \frac{1}{\sqrt{N\pi}}\sin \frac{n}{N}x ~dx = 0.
+    \end{split}
+\end{equation}
+By Parseval's identity,
+\begin{equation}
+    \norm{f}^2 = \frac{2\pi}{N} + \frac{4\pi}{N}\sum_{n=1}^{\infty} \frac{\sin^2\left(\frac{n}{N}\right)}{\left(\frac{n}{N}\right)^2}
+\end{equation}
+If I show that $\lim_{N\rightarrow \infty}  \frac{1}{2^N}\sum_{n=1}^{\infty} \frac{\sin^2\left(\frac{n}{2^N}\right)}{\left(\frac{n}{2^N}\right)^2}=\int_0^\infty \frac{\sin^2 x}{x^2}dx$, we get
+\begin{equation}
+    2\pi^2 = \norm{f}^2 = \lim_{N\rightarrow \infty} \left(\frac{2\pi}{2^N} + \frac{4\pi}{2^N}\sum_{n=1}^{\infty} \frac{\sin^2\left(\frac{n}{2^N}\right)}{\left(\frac{n}{2^N}\right)^2}\right) = 4\pi\int_0^\infty \frac{\sin^2 x}{x^2} dx = 2\pi \int_{-\infty}^\infty \frac{\sin^2 x}{x^2} dx.
+\end{equation}
+Therefore, $\pi = \int_{-\infty}^\infty \frac{\sin^2 x}{x^2} dx$.
+
+Now, I show that $\lim_{N\rightarrow \infty}  \frac{1}{2^N}\sum_{n=1}^{\infty} \frac{\sin^2\left(\frac{n}{2^N}\right)}{\left(\frac{n}{2^N}\right)^2}=\int_0^\infty \frac{\sin^2 x}{x^2}dx$. By the definition of improper Riemann-integral, I need to show that
+\begin{equation}
+    \lim_{N\rightarrow \infty}\lim_{M\rightarrow \infty} \frac{1}{2^N}\sum_{n=1}^{M2^N}\frac{\sin^2\left(\frac{n}{2^N}\right)}{\left(\frac{n}{2^N}\right)^2} = \lim_{M\rightarrow \infty}\lim_{N\rightarrow \infty} \frac{1}{2^N}\sum_{n=1}^{M2^N}\frac{\sin^2\left(\frac{n}{2^N}\right)}{\left(\frac{n}{2^N}\right)^2}.
+\end{equation}
+Let $a_{s,t} = \frac{1}{2^t}\sum_{n=1}^{s2^t}\frac{\sin^2\left(\frac{n}{2^t}\right)}{\left(\frac{n}{2^t}\right)^2}$. What I want to do is for $N_2>N_1>N_0$, $M_2>M_1>M_0$ for large $M_0, N_0$, $, \abs{a_{M_1, N_1}-a_{M_2, N_2}}\leq \abs{a_{M_1, N_1}-a_{M_2, N_1}}+\abs{a_{M_2, N_1}-a_{M_2, N_2}}\rightarrow 0$. The first term becomes
+\begin{equation}\label{Eq:2}
+\begin{split}
+    \abs{a_{M_1, N_1}-a_{M_2, N_1}} &= \frac{1}{2^{N_1}}\abs{\sum_{n=1}^{M_1 2^{N_1}}\frac{\sin^2\left(\frac{n}{2^{N_1}}\right)}{\left(\frac{n}{2^{N_1}}\right)^2} - \sum_{n=1}^{M_22^{N_1}}\frac{\sin^2\left(\frac{n}{2^{N_1}}\right)}{\left(\frac{n}{2^{N_1}}\right)^2}} \\
+    &= \frac{1}{2^{N_1}}\abs{\sum_{n=M_1 2^{N_1}+1}^{M_2 2^{N_1}}\frac{\sin^2\left(\frac{n}{2^{N_1}}\right)}{\left(\frac{n}{2^{N_1}}\right)^2}} \\
+    &\leq 2^{N_1}\sum_{n=M_1 2^{N_1}+1}^{M_2 2^{N_1}}\frac{1}{n^2}\\
+    &\leq 2^{N_1}\left(\frac{1}{M_1 2^{N_1}} - \frac{1}{M_2 2^{N_1}}\right) \\
+    &= \frac{1}{M_1}-\frac{1}{M_2}\rightarrow 0
+\end{split}
+\end{equation}
+as $M_0\rightarrow \infty$ independent to $N$. The second term is the difference between the partition of $2^{N_1}$ and the refinement partition of $2^{N_2}$. Writing it precisely, it is
+\begin{equation}
+\begin{split}
+    \abs{a_{M_2, N_1}-a_{M_2, N_2}} &= \abs{\frac{1}{2^{N_1}}\sum_{n=1}^{M_2 2^{N_1}}\frac{\sin^2\left(\frac{n}{2^{N_1}}\right)}{\left(\frac{n}{2^{N_1}}\right)^2} - \frac{1}{2^{N_2}}\sum_{n=1}^{M_22^{N_2}}\frac{\sin^2\left(\frac{n}{2^{N_2}}\right)}{\left(\frac{n}{2^{N_2}}\right)^2}}\\
+    &= \frac{1}{2^{N_1}}\abs{\sum_{n=1}^{M_2 2^{N_1}}\left(\frac{\sin^2\left(\frac{n}{2^{N_1}}\right)}{\left(\frac{n}{2^{N_1}}\right)^2} - \frac{1}{2^{N_2-N_1}} \sum_{m=1}^{2^{N_2-N_1}}\frac{\sin^2\left(\frac{(n-1)}{2^{N_1} }+ \frac{m}{2^{N_2}}\right)}{\left(\frac{(n-1)}{2^{N_1}} + \frac{m}{2^{N_2}}\right)^2}\right)}.
+\end{split}
+\end{equation}
+The inner sum can be seen as the difference between a value with the average value inside the interval. Therefore, it is not bigger the supremum and infimum in the interval $\left(\frac{n}{2^{N_1}}, \frac{n+1}{2^{N_1}}\right)$. Therefore, we can split $\sum_{n=1}^{M_2 2^{N_1}} = \sum_{n=1}^{M_0 2^{N_1}} + \sum_{n=M_0 2^{N_1} + 1}^{M_2 2^{N_1}}$ so that the first term represents the finite interval integral by setting $N_0$ large enough and latter one goes to $0$ as $M_0\rightarrow \infty$ regardless the value $N_1$ as \eqref{Eq:2}. Therefore, we get
+\begin{equation}
+    \lim_{s,t\rightarrow \infty} a_{s,t} = \int_0^\infty \frac{\sin^2(x)}{x^2}dx.
+\end{equation}
+\end{proof}
+
+
+
+
+
+
+\noindent \textbf{4}
+\begin{proof}
+Since $T$ is the sum of two bounded operators, it is bounded. For any $h,g\in L^2([0,1])$,
+\begin{equation}
+\begin{split}
+    \langle Th, g\rangle &= \langle \alpha h,g\rangle +\langle i\int_0^1 K(x,y)h(y) dy, g \rangle = \langle h, \alpha g\rangle + \left\langle h, -i\int_0^1 K(x,y)g(y)dy\right\rangle \\
+    &= \left\langle h, \left(\alpha g - i\int_0^1 K(x,y)g(y)dy\right)\right\rangle,
+\end{split}
+\end{equation}
+so 
+\begin{equation}
+    (T^*u)(x) = \alpha u(x) - i \int_0^1 K(x,y)u(y) dy
+\end{equation}
+The real part is $((T+T^*)/2)u(x) = \alpha u(x)$ and imaginary part is $((T-T^*)/2i)u = \int_0^1 K(x,y)u(y)dy$. The real and imaginary part of $T$ commutes since
+\begin{equation}
+\begin{split}
+    ((T-T^*)/2i)((T+T^*)/2)u(x) &= ((T-T^*)/2i)\alpha u(x) = \int_0^1 K(x,y)\alpha u(y)dy \\
+    &= \alpha\int_0^1 K(x,y)u(y)dy = ((T+T^*)/2)((T-T^*)/2i)u
+\end{split}
+\end{equation}
+for all $u\in L^2([0,1])$. Therefore, $T$ is normal.
+\end{proof}
+
+
+
+
+
+
+
+\noindent \textbf{5}
+\begin{proof}
+Let's set $S = \frac{A+\norm{A}}{2}$, $T = \frac{\norm{A}-A}{2}$, then $A = S-T$ and $S,T$ are positive since $\abs{\langle Ax, x\rangle} \leq \norm{Ax}\norm{x}\leq \norm{A}\norm{x}^2$, so
+\begin{equation}
+    0\leq \norm{A}\norm{x}^2 - \abs{\langle Ax, x\rangle} \leq\norm{A}\norm{x}^2 \pm \langle Ax, x\rangle=\langle (\norm{A}\pm A)x, x\rangle
+\end{equation}
+and for any $x$. (Since $A$ is self-adjoint, $\langle Ax, x\rangle \in \varmathbb{F}$.) As $\norm{A}\in\varmathbb{F}$, $A\norm{A} = \norm{A}A$, so $ST=TS$ and it means that $ST\geq 0$. Furthermore,
+\begin{equation}
+    4\langle STx, x\rangle = \langle (A+\norm{A})(-A+\norm{A})x, x\rangle = -\langle A^2 x, x\rangle + \langle \norm{A}^2 x, x\rangle = -\norm{Ax}^2+\norm{Ax}^2 = 0.
+\end{equation}
+Therefore, $ST = 0$. 
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
