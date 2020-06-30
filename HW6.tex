@@ -1,0 +1,137 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW7}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1,3}
+Before starting, I'll prove a lemma.
+\begin{lemma}
+If $\cl(S)\subset \mathscr{H}$ is totally bounded, then for any $\epsilon>0$, there exists a finite sequence $x_i\in S$ such that $\cl(S)\subset \cup_{i=1}^n B_\epsilon(x_i)$, where $B_\epsilon(x_i) = \{x:\norm{x-x_i}<\epsilon\}$.
+\end{lemma}
+Now, I'll prove the proposition:
+\begin{proposition}
+If $A\in B_0(\mathscr{H})$, $B\in B(\mathscr{H})$ and $A\leq B$, then $A$ is compact.
+\end{proposition}
+\begin{proof}
+For given $\epsilon>0$, since $\cl(S)$ is totally bounded, there exists $t_i\in \mathscr{H}$ such that $\cl(S)\subset \cup_{i=1}^n B_{\epsilon/3}(t_i)$. WLOG, assume $B_{\epsilon/3}(t_i)\cap \cl(S)\neq 0$ for all $i$. Since $B_{\epsilon/3}(t_i)$ is an open set, there exists $x_i\in B_{\epsilon/3}(t_i)\cap S$ and $B_{\epsilon/3}(t_i)\subset B_\epsilon(x_i)$. Therefore, $\cl(S)\subset \cup_{i=1}^n B_\epsilon(x_i)$.
+\end{proof}
+
+\begin{proof}
+For a unit ball $B_H$, I'll show that $\sqrt{T^*T}(B_H)$ is totally bounded. Fix $\epsilon>0$. Since $T\in B_0(H)$, there exists finite $x_1, \ldots, x_n$ in $T(B_H)$ such that $T(B_H)\subset \cup_{i=1}^n B_\epsilon(x_i)$ . Since $x_i\in T(B_H)$ for each $i$, there exists $h_i\in B_H$ which maps to $x_i$, and set $y_i = \sqrt{T^*T}(h_i)$. Now, let's consider $\cup_{i=1}^n B_\epsilon(y_i)$. For any $y\in \sqrt{T^*T}(B_H)$, there exists $h\in B_H$ such that $y = \sqrt{T^*T}(h)$ and set $x = Th$. As $T(B_H)\subset \cup_{i=1}^n B_\epsilon(x_i)$, there exists $x_j$ such that $\norm{x-x_j}<\epsilon$. Since $\norm{x-x_j} = \norm{T(h-h_j)} = \norm{\sqrt{T^*T}(h-h_j)} = \norm{y-y_j}$, it shows that $\sqrt{T^*T}(B_H)\subset \cup_{i=1}^n B_\epsilon(y_i)$ and $\cl(\sqrt{T^*T}(B_H))\subset \cup_{i=1}^n B_{2\epsilon}(y_i)$. Therefore, $\sqrt{T^*T}$ is compact.
+\end{proof}
+
+\noindent \textbf{2}
+\begin{proof}
+Since $S\geq 0$, $\langle (S^2-T^*T)x, x\rangle = \norm{Sx}-\norm{Tx} = 0$ for all $x$, so $0\geq S^2-T^*T$. Furthermore, $(S^2-T^*T)$ is a self adjoint operator, so there exists square root of the operator $B$. Since $\langle Bx, Bx\rangle = \langle (S^2-T^*T)x, x\rangle = 0$, $B = 0$ and it implies that $S^2-T^*T = 0$. Therefore, $S^2 = T^*T$ and by the uniqueness of square root, $S=\sqrt{T^*T}$.
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

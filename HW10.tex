@@ -1,0 +1,219 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\newcommand{\gra}{\textrm{gra }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW10}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1.10}
+\begin{proof}
+Since $\{x:\norm{x}\leq 1\}$ is norm-closed and convex, it is weak-closed. Therefore, I need to show that any closed set containing $S$ contains the set.
+
+I'll show that for $x_0$ with $\norm{x_0}<1$, any neighborhood of $x_0$ intersects with $S$. For a neighborhood $U = \cap_{i=1}^n\{x:p_i(x)<\epsilon\}$ of $x_0$ following the notation in the book, note that $\dim(\mathscr{X}/\ker p_i) = 1$ for all $i$ by the first isomorphism theorem. 
+
+Since $\mathscr{X}$ has infinite dimension, choose $2^n$ Hamel basis and denote it $e_j$ for $1\leq j\leq 2^n$. Now, I'll construct a linear combination of $e_j$ contained in $\cap_{i=1}^n \ker p_i$. For pair $(e_{2j-1}, e_{2j})$ for $1\leq j\leq 2^{n-1}$, there exists $\lambda_{2j}$ such that $p_1(e_{2j-1}+\lambda_{2j}e_{2j}) = 0$ if $p_1(e_{2j})\neq 0$. Let $e_{2j-1}+\lambda_{2j}e_{2j} = e^1_{j}$ if $p_1(e_{2j})\neq 0$ and $e_{2j} = e^1_{j}$ if $p_1(e_{2j})= 0$. For $p_2$, repeat the preceding procedure to construct $e^2_j$ for $1\leq j\leq 2^{n-2}$. At the end, this process generates $e^n_1$ such that $p_i(e^n_1) = 0$ for all $i$ and it is non-zero since every element in each $i$th step has at least one $e_j$ with coefficient $1$. Therefore, $\frac{e^n_1}{\norm{e^n_1}}\in S$ is the intersection of the neighborhood with $S$.
+\end{proof}
+
+\noindent \textbf{3.3}
+
+\begin{proof}
+Let $X = (\ball \mathscr{X}^*, \wk^*)$ and let $\varphi:\mathscr{X}\rightarrow C(X)$ by $\varphi(x) = \hat{x}$ such that $\hat{x}:\mathscr{X}\rightarrow \varmathbb{F}$ by $\hat{x}(f) = f(x)$ for $f\in \ball \mathscr{X}^*$. I'll first show that this map is well-defined. For a net $f_i\rightarrow f$ in $X$, $\hat{x}(f_i) = f_i(x)\rightarrow f(x) = \hat{x}(f)$ for all $x\in \mathscr{X}$, so $\varphi(x)$ is continuous, and it is in $C(X)$. For $x,y\in \mathscr{X}$, $\varphi(x+y) = \widehat{x+y}$, and $\widehat{x+y}(f)=f(x+y) = f(x)+f(y) = \hat{x}(f)+\hat{y}(f)$, so $\varphi(x+y)=\varphi(x)+\varphi(y)$. Also, $\varphi(rx) = r\varphi(x)$ by the linearity of $f\in X$. Therefore, $\varphi$ is a linear map.
+
+Since $\norm{x} = \sup\{\abs{f(x)}:f\in \ball X^*\} = \norm{\varphi(x)}$, $\varphi$ is an isometry. Finally, we get an isometrically isomorphism from $\mathscr{X}$ to $\varphi(\mathscr{X})$ which is a closed subspace of $C(X)$. (It is closed since $\mathscr{X}$ is closed and $\varphi$ is a homeomorphism between $\mathscr{X}$ and $\varphi(\mathscr{X})$.)
+\end{proof}
+
+\noindent \textbf{4.2}
+\begin{proof}
+First, I'll prove some propositions.
+\begin{proposition}
+Let $M$ be a closed subspace of a Banach space $\mathscr{X}$. The natural quotient map $Q:\mathscr{X}\rightarrow \mathscr{X}/M$ induces a continuous map $Q^{**}$ from $\mathscr{X}^{**}\rightarrow (\mathscr{X}/M)^{**}$ which makes the following diagram commutes where $\pi$ is the natural map.
+\[ \begin{tikzcd}\mathscr{X} \arrow{r}{Q} \arrow[swap]{d}{\pi_{\mathscr{X}}} & \mathscr{X}/M \arrow{d}{\pi_{\mathscr{X}/M}} \\%
+\mathscr{X}^{**} \arrow{r}{Q^{**}}& (\mathscr{X}/M)^{**}
+\end{tikzcd}
+\]
+Furthermore, $\ker Q^{**} = (M^\perp)^\perp$.
+\end{proposition}
+\begin{proof}
+Constuct a map $Q^*:(\mathscr{X}/M)^*\rightarrow \mathscr{X}^*$ by setting $Q^*(f) = f\circ Q$ for $f\in (\mathscr{X}/M)^*$. With the map, construct $Q^{**}$ by $Q^{**}(f) = f\circ Q^*$ for $f\in \mathscr{X}^{**}$. Since $f:\mathscr{X}^{*}\rightarrow\varmathbb{F}$, $f\circ Q^*:(\mathscr{X}/M)^*\rightarrow \varmathbb{F}$ and it is continuous since $Q^*$ is continuous. (Since $\norm{Q^*}\leq \norm{Q}$ and $\norm{Q}\leq 1$.)
+
+Let's check the commutativity of the above diagram. For $x\in \mathscr{X}$, $(Q^{**}(\pi_{\mathscr{X}}(x)))(g) = \pi_{\mathscr{X}}(x) (Q^*(g)) = g(x+M)$ and $(\pi_{\mathscr{X}/M}(Q(x)))(g) = g(x+M)$, so the diagram commutes.
+
+If $x^{**}\in \ker Q^{**}$, then for any $f\in (\mathscr{X}/M)^*$, $x^{**}(f\circ Q) = 0$. Since $\phi:(\mathscr{X}/M)^*\rightarrow M^\perp$ by mapping $f\mapsto f\circ Q$ is an isometric isomorphism, it means that $\ker Q^{**}\subset (M^\perp)^\perp$.(cf. Theorem III.10.2) The converse follows by the same argument.
+\end{proof}
+
+\begin{proposition}
+(Exercise III.11.3) Let $\mathscr{X}$ be a Banach space. Let $M\leq X$ and let $\pi_\mathscr{X}:\mathscr{X}\rightarrow \mathscr{X}^{**}$ and $\pi_M:M\rightarrow M^{**}$ be the natural maps. If $i:M\rightarrow\mathscr{X}$ is the inclusion map, show that there is an isometry $\phi:M^{**}\rightarrow\mathscr{X}^{**}$ such that the diagram
+\[ \begin{tikzcd} M \arrow{r}{i} \arrow[swap]{d}{\pi_M} & \mathscr{X} \arrow{d}{\pi_\mathscr{X}} \\%
+M^{**} \arrow{r}{\phi}& \mathscr{X}^{**}
+\end{tikzcd}
+\]
+commutes. Furthermore, $\phi(M^{**})=(M^\perp)^\perp$.
+\end{proposition}
+
+\begin{proof}
+For $M^{**}$, construct $\phi$ by $(\phi(m^{**}))(f) = m^{**}(f|M)$ for $f\in X^*$. Since $\abs{\phi(m^{**})(f)}\leq \norm{m^{**}}\norm{f}$, $\norm{\phi(m^{**})}\leq \norm{m^{**}}$ and $\norm{\phi}\leq 1$, so it is continuous. Conversely, for any $\epsilon>0$, there exists $g\in M^*$ with $\norm{g} = 1$ such that $\abs{m^{**}(g)}>\norm{m^{**}}-\epsilon$. For such $g$, the Hahn-Banach theorem implies that there exists $f\in X^*$ such that $\norm{f}=\norm{g}$ and $m^{**}(f|M)=m^{**}(g)$. Therefore, $\abs{\phi(m^{**})(f)} >\norm{m^{**}}-\epsilon$ for any $\epsilon>0$, so $\norm{\phi(m^{**})}=\norm{m^{**}}$.
+
+Let's check the commutativity. For $m\in M$, $(\pi_\mathscr{X}(i(m)))(f) = f(m) = (f|M)(m) = (\pi(\rho_M(m)))(f)$, so the diagram commutes.
+
+Finally, let's show $\phi(M^{**})=(M^\perp)^\perp$. For any $f\in (M^\perp)$, $\phi(m^{**})(f) = m^{**}(f|M) = m^{**}(0) = 0$, so $\phi(M^{**})\subset (M^\perp)^\perp$. Conversely, for $f\in (M^\perp)^\perp$, it means that $f:X^*\rightarrow \varmathbb{F}$ with $M^\perp\subset \ker f$. Therefore, we can modify $f$ by $X^*/M^\perp\rightarrow \varmathbb{F}$ and again $f':M^*\rightarrow \varmathbb{F}$ defined by the following: for any $m^*\in M^*$, take Hahn-Banach theorem to extend $m^*$ to $x^*\in X^*$ and set $f'(m^*) = f(x^*+M^\perp)$. Since the extension is the isometric isomorphism from $M^*$ to $X^*/M^\perp$, this map is well-defined and continuous. Finally, $f'\in M^{**}$ and $(\phi(f'))(x^*) = f'(x^*|M) = f'(m^*) = f(x^*+M^\perp) = f(x^*)$ for any $x^*\in \mathscr{X}^{**}$, so $\phi$ is surjective onto $(M^\perp)^\perp$.
+\end{proof}
+
+I need to show that $\pi_{\mathscr{X}}$ is surjective since it is already an isometry. Let $x^{**}\in \mathscr{X}^{**}$ and $y^{**} = Q(x^{**})$. Using the $\pi_{\mathscr{X}/M}$, we get $y$ such that $\pi_{\mathscr{X}/M}(Q(y)) = y^{**}$. Now, consider $m = x^{**}-\pi_{\mathscr{X}}(y)$. Since $m^{**}\in \ker Q^{**}=(M^\perp)^\perp = \phi(M^{**})$, there exists $m$ such that $\phi(\pi_M(m)) = \pi_\mathscr{X}(m) = m^{**}$. Therefore, $x^{**} = \pi_\mathscr{X}(m) + \pi_{\mathscr{X}}(y) = \pi_\mathscr{X}(m+y)$. Therefore, $\pi_\mathscr{X}$ is surjective.
+\end{proof}
+
+This can be seen as a consequence of Banach space version of short five lemma.
+
+\noindent \textbf{5.4}
+\begin{proof}
+I'll first show that $d$ is a metric. For $\phi,\psi,\varphi\in \ball l^\infty$,
+\begin{enumerate}
+    \item Since $\abs{\phi(j)-\psi(j)}\leq 2$ for all $j$, $d(\phi,\psi)\leq 2$.
+    \item If $\phi=\psi$, $d(\phi,\psi) = 0$. Conversely, $d(\phi, \psi) = 0$ implies $\phi(j) = \psi(j)$ for all $j$, so $\phi=\psi$.
+    \item $d(\phi,\psi) = \sum_{j=1}^\infty 2^{-j}\abs{\phi(j)-\psi(j)} = \sum_{j=1}^\infty 2^{-j}\abs{\psi(j)-\phi(j)} = d(\psi, \phi)$.
+    \item \begin{equation}
+        \begin{split}
+            d(\phi,\psi)+d(\psi,\varphi) &= \sum_{j=1}^\infty 2^{-j}\abs{\phi(j)-\psi(j)} +  \sum_{j=1}^\infty 2^{-j}\abs{\psi(j)-\varphi(j)} \\
+            &\geq\sum_{j=1}^\infty 2^{-j}\abs{\phi(j)-\psi(j) +\psi(j)-\varphi(j)} \\
+            &= d(\phi, \varphi).
+        \end{split}
+    \end{equation}
+\end{enumerate}
+Now, let $T_{\norm{\cdot}}$ be the topology generated by $d$ and $T_*$ be the wk* topology on $B$.
+\begin{enumerate}
+    \item[$T_*\subset T_{\norm{\cdot}}$] Choose $x\in l^1$, $x_0^*\in \ball l^\infty$, and $\epsilon>0$ such that $1/2^{N_1+1}<\epsilon<1/2^{N_1}$ for some $N_1\in\varmathbb{N}$. Set $N_2\in \varmathbb{N}$ such that $\sup_j \abs{x(j)}<2^{N_2}$. Choose $N_3\in\varmathbb{N}$ such that $\sum_{j=N_3+1}^\infty \abs{x(j)}<1/2^{N_1+3}$. For $U = \{x^*\in \ball l^\infty:p_x(x^*-x_0^*)<\epsilon\}$, set $V=\{x^*\in \ball l^\infty:d(x_0^*, x^*)<1/(N_3 2^M)\}$ for $M=N_1+N_2+N_3+2$. For $x^*\in V$, $\abs{x^*(j)-x_0^*(j)}\leq 1/2^{M-j}$, so
+    \begin{equation}
+    \begin{split}
+        p_x(x^*-x_0^*) &\leq \sum_{j=1}^\infty \abs{x^*(j)-x_0^*(j)}\abs{x(j)}\\
+        &\sum_{j=1}^{N_3} \abs{x^*(j)-x_0^*(j)}\abs{x(j)} + \sum_{j=N_3+1}^\infty \abs{x^*(j)-x_0^*(j)}\abs{x(j)} \\
+        &\leq \sup_{1\leq j\leq N_3}\abs{x(j)}\sum_{j=1}^{N_3} \abs{x^*(j)-x_0^*(j)} + \sup_{j\geq N_3+1}\abs{x^*(j)-x_0^*(j)}\sum_{j=N_3+1}^\infty \abs{x(j)}\\
+        &\leq 2^{N_2}N_3 \frac{1}{N_3 2^{M-N_3}} + \frac{2}{2^{N_1+3}}\\
+        &= \frac{1}{2^{N_1 + 2}}+\frac{1}{2^{N_1+2}} = \frac{1}{2^{N_1+1}}
+    \end{split}
+    \end{equation}
+    Therefore, $U\subset V$ and $T_*\subset T_{\norm{\cdot}}$.
+    \item[$T_{\norm{\cdot}}\subset T_*$] I'll use the same notation for $x_0^*$ and $N_1$ but redefine $U$ and $V$. Set $V=\{x^*\in \ball l^\infty:d(x_0^*, x^*)<\epsilon\}$. Since $1/2^{N_1+1}<\epsilon$, it is relatively free to choose $x^*(j)$ for $j>N_1+3$ since we can adjust the front values of $x^*(j)$. Set $x$ by setting $x(j)=1$ for $j\leq N_1+2$ and $0$ for elsewhere and $U= \{x^*\in \ball l^\infty:p_x(x^*-x_0^*)<1/(2^{N_1+2})\}$, then for $x^*\in U$,
+    \begin{equation}
+    \begin{split}
+        \sum_{j=1}^\infty 2^{-j}\abs{x_0^*(j)-x^*(j)} &= \sum_{j=1}^{N_1+2} 2^{-j}\abs{x_0^*(j)-x^*(j)} + \sum_{j=N_1+3}^\infty 2^{-j}\abs{x_0^*(j)-x^*(j)} \\
+        &\leq \sum_{j=1}^{N_1+2} \abs{x_0^*(j)-x^*(j)} + 2\sum_{j=N_1+3}^\infty 2^{-j}\\
+        &\leq p_x(x^*-x_0^*) + \frac{1}{2^{N_1+2}}\\
+        &\leq \frac{1}{2^{N_1+2}} + \frac{1}{2^{N_1+2}} = \frac{1}{2^{N_1+1}}.
+    \end{split}
+    \end{equation}
+    Therefore, $T_{\norm{\cdot}}\subset T_*$.
+\end{enumerate}
+\end{proof}
+\end{document}
+
+%================================================================================

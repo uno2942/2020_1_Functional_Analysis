@@ -1,0 +1,315 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis FINAL}
+\end{center}
+박성빈, 수학과, 20202120
+
+For simplicity, I'll denote $(a_n)\in c_0$ by $(a(n))\in c_0$ such that $a(n) \equiv a_n\in \mathbb{F}$. Also, balls and $B(x,r)$ which is centered at $x$ with radius $r$ in this article mean the closed balls if there is no comment.
+
+\noindent \textbf{1}
+\begin{proof}
+First, I'll show the equivalence of two norm $\norm{\cdot}_1 = \sup_{1\leq k\leq n}\{\sup_{x\in[0,1]}\abs{f^{(k)}(x)}\}$ and $\norm{\cdot}_2 = \sum_{k=0}^{n-1}\abs{f^{(k)}(0)} + \sup_{x\in[0,1]}\abs{f^{(n)}(x)}$.
+
+Fix $\epsilon>0$ and set $\norm{f}_2<\epsilon/(n+1)$, then
+\begin{equation}\label{Eq:1}
+    \abs{f^{(n-1)}(x)} = \abs{f^{(n-1)}(0) + \int_0^x f^{(n)}(t)dt} \leq \abs{f^{(n-1)}(0)} + \int_0^x \abs{f^{(n)}}(t)dt \leq \frac{\epsilon}{n+1} + \frac{\epsilon}{n+1} = \frac{2}{n+1}\epsilon
+\end{equation}
+for all $x\in [0,1]$ and by induction, we get $\abs{f^{(k)}(x)}\leq \frac{(n-k+1)}{(n+1)}\epsilon$ for all $x\in [0,1]$ for $0\leq k\leq n$. Therefore, $\norm{f}_1<\epsilon$.
+
+Conversely, set $\norm{f}_1<\epsilon/n$, then $\sum_{k=0}^{n-1}\abs{f^{(k)}(0)}\leq \frac{n-1}{n}\epsilon$ and $\sup_{x\in[0,1]}\abs{f^{(n)}(x)}<\epsilon/n$, so $\norm{f}_2\leq \epsilon$.
+
+For $L(f) = \sum_{k=0}^{n-1}\alpha_k f^{(k)}(0) + \int_0^1 f^{(n)}d\mu$, 
+\begin{equation}\label{Eq:norm1}
+    \abs{L(f)}\leq \left(\sup_{0\leq j\leq n-1}\abs{\alpha_j}\right)\sum_{k=0}^{n-1}\abs{f^{(k)}(0)} + \sup_{x\in [0,1]}\abs{f^{(n)}(x)}\abs{\mu}([0,1])\leq \max \left\{\left(\sup_{0\leq j\leq n-1}\abs{\alpha_j}\right), \norm{\mu}\right\}\norm{f}_2,
+\end{equation}
+so $L\in \left(C^{(n)}[0,1]\right)^*$. (In fact, $\mu$ should be a complex Radon measures. To use Riesz Representation Theorem later.)
+
+Conversely, Let $L\in \left(C^{(n)}[0,1]\right)^*$. For $f\in C^{(n)}[0,1]$, set $g = f-\sum_{k=0}^{n-1}f^{(k)}(0)\frac{x^k}{k!}$. Since $L$ is linear,
+\begin{equation}
+    L(f) = L(g) + L\left(\sum_{k=0}^{n-1}f^{(k)}(0)\frac{x^k}{k!}\right) = L(g) + \sum_{k=0}^{n-1}\frac{L(x^k)}{k!}f^{(k)}(0).
+\end{equation}
+Set $\alpha_k = \frac{L(x^k)}{k!}$. Since $g^{(k)}(0) = 0 $ for $0\leq k \leq n-1$, these terms does not effect $L(g)$ if we assume the final form of $L$ is the desired form.
+
+Now, consider a map $h: g\mapsto g^{(n)}$ for $g\in C^{(n)}[0,1]$ such that $g^{(k)}(0) = 0$ for all $0\leq k\leq n-1$. (Note that the domain forms a closed lienar subspace of $C^{(n)}[0,1]$.) This is linear and continuous map since $\norm{h(g)} = \sup_{x\in [0,1]}\abs{f^{(n)}(x)} = \norm{g}_2$ for $\sum_{k=0}^{n-1}\abs{f^{(k)}(0)} = 0$. $h$ is surjective: for any $f\in C[0,1]$, set $f_0 = f$ and $f_i(x) = \int_0^x f_{i-1}(t)dt$, then $f_n\in C^{(n)}[0,1]$ with $f_n^{(k)}(0) = 0$ for all $0\leq k\leq n-1$. Also, $h$ is injective since if $g^{(n)} = 0$ with $g^{(k)}(0) = 0$ for all $0\leq k\leq n$ means that $g=0$. Therefore, $h$ is surjective isometry.
+
+Set $L\circ h^{-1} = I$. Using Riesz Representation Theorem, we get $\mu$ in complex Radon measure space such that $I(g^{(n)}) = \int_0^1 g^{(n)} d\mu$ which means that 
+\begin{equation}
+    I\left(f^{(n)}\right) = \int_0^1 f^{(n)} d\mu = L\circ \left(h^{-1}(f^{(n)})\right) = L\left(f - \sum_{k=0}^{n-1}f^{(k)}(0)\frac{x^k}{k!}\right)
+\end{equation}
+Finally, we get
+\begin{equation}
+    L(f) = \sum_{k=0}^{n-1}\alpha_k f^{(k)}(0) + L\left(f - \sum_{k=0}^{n-1}f^{(k)}(0)\frac{x^k}{k!}\right)=\sum_{k=0}^{n-1}\alpha_k f^{(k)}(0) + \int_0^1 f^{(n)}d\mu.
+\end{equation}
+\end{proof}
+
+Let's verify the $\norm{L}$. Let $\alpha_k = e^{i\theta_k}\abs{\alpha_k}$ for $\theta_k\in [0,2\pi)$ and $\alpha_{n} = \norm{\mu}$. Choose $k_0$ such that $\abs{\alpha_{k_0}}\geq \abs{\alpha_k}$ for all $k$. By \eqref{Eq:norm1}, we get $\norm{L}\leq \abs{\alpha_{k_0}}$. Conversely, I'll show that $\norm{L}\geq \abs{\alpha_{k_0}}$. If $k_0\leq n-1$, then set $f = \frac{e^{-i\theta_0}}{k_0!}x^{k_0}$, then $\norm{f}_2 = 1$ and $L(f) = \abs{\alpha_{k_0}}$. If $k_0 = n$, then assuming $\norm{\mu}>0$, pick $0<\epsilon<\norm{\mu}$ and $g$ such that $\norm{g}\leq 1$ and $\int_0^1 gd\mu > \norm{\mu}-\epsilon$. (we can erase the absolute value operation by multiplying $\abs{\int_0^1 gd\mu}/\int_0^1 gd\mu$ to $g$.) Set $f = h^{-1}(g)$, then $\norm{f}_2\leq 1$ and $\abs{L(f)}>\norm{\mu}-\epsilon$ for arbitrary $0<\epsilon<\norm{\mu}$. Therefore, $\norm{L} \geq \norm{\mu}$. It show that
+\begin{equation}
+    \norm{L} = \max\{\sup_{1\leq k\leq n-1}\abs{\alpha_k}, \norm{\mu}\}.
+\end{equation}
+
+\noindent \textbf{2}
+
+\begin{proof}
+Let $X$ be a infinite dimensional Banach space and I'll assume that $S_X$ is not compact in $X$, which will be proven in problem 4 independently. (Or we proved $B_X$ is not compact in $X$, then it can be shown by contradiction: if $S_X$ were compact, then $f:[0,1]\times S_X\rightarrow X$ by $f(r,x) = rx$ is continuous, so $\textrm{Im} f = B_X$ is compact, which is contradiction.) (If $X$ is a finite dimensional Banach space, then $T\in \mathcal{B}_{00}(X)$, and the counterexample is $T=\textrm{id}$.) Since $S_X$ is closed in norm-topology and $X$ is a complete normed space, $S_X$ is not totally bounded. Therefore, for some $\epsilon>0$, we can choose countably many $e_i$ such that $e_i\in S_X$ and $\norm{e_i-e_j}>\epsilon$ for $i\neq j$. (To construct such $e_i$. First, choose $e_1\in S_X$ and consider $S^1_X = S_X\setminus B(e_1, \epsilon)$. Then choose $e_2\in S^1_X$ and consider $S^2_X = S^1_X\setminus B(e_2, \epsilon)$. Since $S_X$ is not totally bounded, we can repeat this procedure.) For such $e_i$, consider $T(e_i) = \eta_i \in \overline{T(S_X)}$. Since $\overline{T(S_X)}\subset \overline{T(B_X)}$, which is a compact set, $\overline{T(S_X)}$ is compact and there exists $\eta$ such that $\eta_{i_j}\rightarrow \eta$ for some subsequence $\eta_{i_j}$. Also, it means that $\eta_{i_j}$ is a Cauchy sequence in $T(S_X)$. Therefore, for any $\delta>0$, we can choose $j_1, j_2$ such that
+\begin{equation}
+    \norm{T\left(\frac{e_{i_{j_1}}-e_{i_{j_2}}}{\norm{e_{i_{j_1}}-e_{i_{j_2}}}}\right)} = \frac{1}{\norm{e_{i_{j_1}}-e_{i_{j_2}}}}\norm{\eta_{i_{j_1}}-\eta_{i_{j_2}}}<\frac{1}{\epsilon}\norm{\eta_{i_{j_1}}-\eta_{i_{j_2}}}<\frac{\delta}{\epsilon}.
+\end{equation}
+
+For $\delta=\frac{\epsilon}{2}$. choose $j^1_1<j^1_2$ such that $\norm{T\left(\frac{e_{i_{j^1_1}}-e_{i_{j^1_2}}}{\norm{e_{i_{j^1_1}}-e_{i_{j^1_2}}}}\right)}<1/2$. Second, repeat it for $\delta = \frac{\epsilon}{4}$ satisfying $j^2_2>j^2_1 > j^1_2$. Repeating this procedure for all $\delta = \frac{\epsilon}{2^n}$, we get $\gamma_n = \frac{e_{i_{j^n_1}}-e_{i_{j^n_2}}}{\norm{e_{i_{j^n_1}}-e_{i_{j^n_2}}}}$ such that $T(\gamma_n)\rightarrow 0$. Therefore, $0\in \overline{T(S_X)}$.
+\end{proof}
+
+\noindent \textbf{3}
+
+\begin{proof}
+\begin{enumerate}
+    \item[(a)] Since $2A$ is compact in a metric space, it is totally bounded. Cover $2A$ with $\{B(x^1_i, 1)\}_{i=1}^{n_1}$ with $x_i\in X$ and set $A_1 = \cup_{i=1}^{n_1} \left((B(x^1_i, 1)\cap 2A)-x^1_i\right)$. Since $B(x^1_i,1)\cap 2A$ is a closed subset of $2A$, it is compact and $A_1$ is again compact. Now, cover $A_1$ by $\{B(x^2_i, 1/4)\}_{i=1}^{n_2}$ and set $A_2 = \cup_{i=1}^{n_2}\left((B(x^2_i, 1/4)\cap A_1)-x^2_i\right)$. By the same reason, $A_2$ is compact and we can repeat it generating $A_j$ with $\{x^j_i\}_{i=1}^{n_j}$ such that $A_{j-1}\subset \cup_{i=1}^{n_j} B(x^j_i, 1/4^{j-1})$. In each step, I can assume that $B(x^j_i, 1/4^{j-1})\cap A_{j-1}\neq \emptyset$. Then, $A_j\subset B(0, 1/4^{j-1})$ since $B(x^j_i, 1/4^{j-1})-x^j_i = B(0, 1/4^{j-1})$. It implies that $\norm{x^{j+1}_i}\leq 2/4^{j-1}$ for each $i$ to make  $A_j \cap B(x^{j+1}_i, 1/4^j)\neq \emptyset$. Therefore, $\norm{x^j_i}\rightarrow 0$ as $j\rightarrow \infty$.
+    
+    Let's construct a sequence by listing the points we get above like below:
+    \begin{equation}
+        \{x_n\} = \{x^1_1, \ldots, x^1_{n_1}, 2x^2_1, \ldots, 2x^2_{n_2}, 2^2 x^3_1, \ldots\}
+    \end{equation}
+    Note that $\norm{2^{j-1} x^j_i}$ still goes to $0$ as $j\rightarrow \infty$.
+    
+    I need to show that $A\subset \overline{\co}\left(\{x_n\}\right)$. For $x\in A$, there exists $x^1_{i_1}$ for some $1\leq i_1\leq n_1$ such that $\norm{2x-x^1_{i_1}}\leq 1$. Since $2x\in B(x_{i_1}^1, 1)\cap 2A$, $2x-x^1_{i_1} \in A_1$. Again, choose $x^2_{i_2}$ such that $\norm{2x-x^1_{i_1}-\frac{1}{2}(2 x^2_{i_2})}\leq 1/4$. Again, $2x-x_{i_1}^1 - \frac{1}{2}(2x_{i_2}^2)\in (B(x^2_i, 1/4)\cap A_1)-x^2_i$, so it is in $A_3$. Repeat this procedure, then we get
+    \begin{equation}
+        \norm{2x-\sum_{j=1}^n \frac{1}{2^{j-1}}(2^{j-1} x^j_{i_j})}\leq \frac{1}{4^{n-1}}.
+    \end{equation}
+    i.e.
+    \begin{equation}
+        \norm{x-\sum_{j=1}^n \frac{1}{2^{j}}(2^{j-1} x^j_{i_j})}\leq \frac{1}{2(4^{n-1})}.
+    \end{equation}
+    Since $\left(1-\frac{1}{2^n}\right)^{-1}\sum_{j=1}^n \frac{1}{2^{j}}(2^{j-1} x^j_{i_j})\in \co(\{x_n\})$ and for $1\leq n_1<n_2$,
+    \begin{equation}
+    \begin{split}
+        \norm{\frac{\sum_{j=1}^{n_1}\frac{1}{2^{j}}(2^{j-1} x^j_{i_j})}{1-\frac{1}{2^{n_1}}} - \frac{\sum_{j=1}^{n_2}\frac{1}{2^{j}}(2^{j-1} x^j_{i_j})}{1-\frac{1}{2^{n_2}}}} &\leq \abs{\frac{2}{2^{n_1}} + \frac{1}{2^{n_2}}}\norm{\sum_{j=1}^{n_1} \frac{1}{2^{j}}(2^{j-1} x^j_{i_j})} + \norm{\sum_{j=n_1+1}^{n_2} \frac{1}{2^{j}}(2^{j-1} x^j_{i_j})} \\
+        &\leq \abs{\frac{2}{2^{n_1}} + \frac{1}{2^{n_2}}}\left(\sum_{j=1}^{n_1} \frac{2^{j-1}}{4^{j-2}}\right) + \sum_{j=n_1+1}^{n_2} \frac{2^{j-1}}{4^{j-2}}
+    \end{split}
+    \end{equation}
+    In the middle step, I used an inequality $1+t\leq \frac{1}{1-t}\leq 1+2t$ for $0\leq t\leq 1/2$. Therefore, $\left(1-\frac{1}{2^n}\right)^{-1}\sum_{j=1}^n \frac{1}{2^{j}}(2^{j-1} x^j_{i_j})\in \co(\{x_n\})$ is a Cauchy sequence in $\overline{\co}(\{x_n\})$ which converges to $x$. Therefore, $A\subset \overline{\co}(\{x_n\})$.
+    
+    \item[(b)]
+    I'll first the following theorem.
+    \begin{theorem}
+        If $T\in \mathcal{B}_0(X,Y)$, then $T^*:Y^*\rightarrow X^*$, which is defined by $T^*(y^*)(x) = y^*(Tx)$ for $y^*\in Y^*$ and $x\in X$, is compact.
+    \end{theorem}
+    \begin{proof}
+        Since compactness in norm topology is equivalent to sequential compactness, I'll show that for any sequence $\{y^*\}$ in $\ball Y^*$, $\{T^* y_n^*\}$ has a norm convergent subsequence.
+        
+        By Alaoglu's theorem, $\ball Y^*$ is compact, so there exists subnet $\{y^*_{n_j}\}$ such that $y^*_{n_j}\rightarrow y^*$ in weak* sense. I'll show that $Ty^*_{n_j}\rightarrow Ty^*$ is the norm-convergent point. For simplicity, I'll denote the subsequence by $y^*_n$ and $Ty^*_n$ again.
+        
+        Note that $T$ is compact, so there exists $\{y_n\}$ such that $\overline{T(\ball X)}\subset \overline{\co}(\{y_n\})$. Fix $\epsilon>0$. First, choose $M$ such that $\norm{y_i}\leq \epsilon/6$ for $i>M$. Then, choose $N$ such that $\abs{(y^*-y^*_n)(y_i)}\leq \epsilon/3$ for all $1\leq i\leq M$ for $n>N$. Then, for all $i$, $\abs{(y^*-y^*_n)(y_i)}<\epsilon/3$ since $\norm{y^*-y^*_n}\leq 2$.
+        
+        Now, choose arbitrary $x\in \ball X$, then $Tx\in \overline{\co}(\{y_n\})$. Take $K$ and $0\leq \lambda_j\leq 1$ with $\sum_{j=1}^K \lambda_j = 1$ such that $\norm{Tx-\sum_{j=1}^K \lambda_j y_j}<\epsilon/3$. For such approximations, we get
+        \begin{equation}
+        \begin{split}
+            \abs{(T'(y^*-y_n^*))(x)}&\leq\abs{(y^*-y_n^*)\left(Tx-\sum_{j=1}^K \lambda_j y_j\right)} + \abs{(y^*-y_n^*)\left(\sum_{j=1}^K \lambda_j y_j\right)}\\
+            &\leq \norm{y^*-y_n^*}(\epsilon/3) + \sum_{j=1}^K \lambda_i \abs{(y^*-y_n^*)( y_j)}\\
+            &\leq (2\epsilon/3) + \epsilon/3 = \epsilon.
+        \end{split}
+        \end{equation}
+        Therefore, $\norm{T'(y^*)-T'(y^*_n)}\rightarrow 0$ as $n\rightarrow \infty$ showing $\overline{T(\ball Y^*)}$ is compact.
+    \end{proof}
+    
+    
+    ($\Rightarrow$) For $y\in Y$, construct $f_y:\mathbb{F}y\rightarrow \mathbb{F}$ by $f_y(\alpha y) = \alpha \norm{y}$ for $\alpha\in \mathbb{F}$. Using Hahn-Banach theorem, extend $f_y$ and get $p_y\in Y^*$ with $\norm{p_y} \leq 1$. Since $\norm{p_y}\leq 1$, $T'(p_y)\in \overline{\co}(\{x_n^*\})$. Now, assume $\norm{Tx}>\sup_n \abs{x_n^*(x)}$ for some $x$. Set $y = Tx$, then $\abs{(T'(p_y))(x)} = \abs{p_y(Tx)} = \norm{Tx}$. Since $\norm{Tx}>\sup_n \abs{x_n^*(x)}$, there exists $\epsilon>0$ such that for any linear combination of $x_n^*$: $\sum_{i=1}^m \lambda_i x_{n_i}^*$ for $0\leq \lambda_i\leq 1$ with $\sum_{i=1}^m \lambda_i = 1$, $\sum_{i=1}^m \lambda_i \abs{x_{n_i}^*(x)}<\norm{Tx}-\epsilon$, which contradicts to the fact $T'(p_y)\in \overline{\co}(\{x_n^*\})$. Therefore, $\norm{Tx}\leq \sup_n \abs{x_n^*(x)}$ for all $x\in X$.
+    
+    %, so there exists $0\leq \lambda_n\leq 1$ such that $\sum_{i=1}^\infty \lambda_n = 1$ and $T'(p_y) = \sum_{i=1}^\infty \lambda_n x_n^*$. It means that $\abs{p_y(Tx)} = \abs{\sum_{n=1}^\infty \lambda_n x_n^*(x)}$. 
+    
+    ($\Leftarrow$) Assume $T\notin \mathcal{B}_0(X,Y)$, but there exists $\{x_n^*\}\subset X^*$ such that $\norm{x_n^*}\rightarrow 0$. Since $T(B_X)$ is not compact in a Banach space, it is not totally bounded, so there exists $\epsilon>0$ such that there are infinitely many $T(x_i)$ such that $\norm{x_i} \leq 1$ and $\norm{T(x_i)-T(x_j)}\geq\epsilon$ for $i\neq j$. Choose $N$ such that $\norm{x_n^*}\leq \epsilon/2$ for $n>N$.
+    
+    Now, I'll derive a contradiction. For $n\leq N$, we can select $T(x_{i_1}) = y_{i_1}, T(x_{i_2}) = y_{i_2}$ such that $\abs{x_n^*(x_{i_1})-x_n^*(x_{i_2})}<\epsilon$ for $1\leq n\leq N$ by Pigeon hall principle as each $x_i$ maps to some point in $B(0, \norm{x^*_n})$ in each $n$th scalar coordinate. Therefore, $\norm{y_{i_1}-y_{i_2}}<\epsilon$ which is a contradiction. Therefore, there is no such sequence.
+    
+    
+    
+\end{enumerate}
+\end{proof}
+
+\noindent \textbf{4}
+\begin{proof}
+    (c).
+    
+    In the previous homework, we showed that the weak-closure of $S_X$ in infinite dimensional Banach space $X$ is $B(0, 1)$. Now assume that $S_X$ can be covered by finitely many closed balls, none of which contains the origin of $X$. Since each closed ball is weakly closed as a closed convex set in norm topology, the union of the balls is also weakly closed. Therefore, the wk-closure of $S_X$ can not contain $0$, which is contradiction. Therefore, $S_X$ can not be covered by finitely many closed balls.
+    
+    Also, it show that $S_X$ is not compact: for $\epsilon = 1/6$, there is no way to cover $S_X$ by finite open balls with radius $\epsilon$ since the covering implies the covering by closed balls with radius $2\epsilon$ not containing the origin.
+\end{proof}
+
+\noindent \textbf{5}
+
+\begin{proof}
+    First, note that $K' = \{(\cos \theta, \sin \theta, z):\theta\in [0,2\pi), z\in [-1,1]\} \simeq S^1\times [-1,1]$ is compact in $\mathbb{R}^3$. Let $f':\mathbb{R}^3\rightarrow \mathbb{R}^3$ such that $f':(x, y, z)\mapsto ((1-\abs{z}) x, (1- \abs{z}) y,  z)$ is continuous and restriction on $K'$ is $K'' = \{((1-\abs{z})\cos \theta, (1-\abs{z})\sin \theta, z):\theta\in [0,2\pi), z\in [-1,1]\}$. For $f'':\mathbb{R}^3\rightarrow \mathbb{R}^3$ such that $f'':(x,y,z)\mapsto (x+\abs{z}, y, z)$ is a continuous function and $f''(K'')$ is the desired cone $K$. Since $K'$ is compact and $K$ is the image of continuous functions, $K$ is compact.
+    
+    The extreme point of $K$ is $(1, 0, 1)\cup (1, 0, -1)\cup \{(\cos \theta, \sin\theta, 0):\theta\in (0, 2\pi)\}$, which is not closed as $0$ is not contained in the set, but $(\cos \frac{1}{n}, \sin \frac{1}{n}, 0)\rightarrow 0$. The reason why $(1,0,1)$ and $(1,0,-1)$ is the extreme point is that if there is any interval $l$ containing one of the points, then there should $\abs{z}>1$ such that $(x,y,z)\in l$ or $x\neq 1$ or $y\neq 0$ such that $(x,y,\pm 1)\in l$, and both cases are not possible. For $(\cos\theta, \sin\theta, 0)$ $\theta\in [0, 2\pi)$, assume it is not an extreme point and WLOG, assume there is an open interval containing the point. If we only consider the point is embedded on upper cone, the tangential plane is consisted of the vector directing $(1,0,1)$ with the tangential vector on the circle $(\cos\theta, \sin\theta, 0)$. For lower con,e the tangential plane is the linear span of the vector directing $(-1,0, 1)$ with the vector on the circle. If the open interval lies on $K$, the interval at least should lies in the two tangential plane, but the intersection line is the tangential vector on circle, which the open interval can not lie. Therefore, $\{(\cos \theta, \sin\theta, 0):\theta\in (0, 2\pi)\}$ is contained the extreme point of $K$. The other points are not extreme point: for the interior points on upper/lower cone, there is an interval connecting $(1, 0, \pm 1$ and a point on $\{(\cos \theta, \sin\theta, 0):\theta\in (0, 2\pi)\}$. For $(1,0,0)$, it is contained in $\{(1,0,z):-1/2<z<1/2\}$.
+    
+    Let $f(x):[0,1]\rightarrow \mathbb{R}^2$ by $f(x) = x^2\sin \frac{1}{x}$ with $f(0) = 0$. Then $f(x)$ is continuous and whole image if extreme point: If $0<x_0$ is not an extreme point, it must contained in its tangential line, but if $f''(x_0) = (-2 x_0 \cos(1/x_0) + (-1 + 2 x_0^2) \sin(1/x_0))/x_0^2 = 0$, then $2 x_0 \cos(1/x_0) = (-1 + 2 x_0^2) \sin(1/x_0)$, but then $f'''(x_0) = \cos(1/x_0)/x_0^4\neq 0$. (For $x_0=1/\sqrt{2}$, $f^{(4)}(x_0) = (-4 x_0 \cos(1/x_0) + \sin(1/x_0))/x_0^6\neq 0$.) For $x_0 = 0$, it is extreme point since it can not be connected with any $f'(x)$ with $x>0$ in a line.
+    
+    Now, consider $K = \Im f \cup \{(0, y):y\in[-1, 1]\}$, then $(0,0)$ is not extreme point, but $f((0, 1])$ is still the set of extreme point. Since the set of extreme point of $K$ is not closed, it is not compact.
+\end{proof}
+
+\noindent \textbf{6}
+
+\begin{proof}
+    \begin{enumerate}
+        \item[(a)]($\Rightarrow$) Let $\pi_n:K\rightarrow \mathbb{F}$ such that $\pi_n(k) = k_n$. This is continuous since it is bounded. As $K$ is pre-compact, it is bounded, so $\sup_{n}\sup_{k\in K}\abs{\pi_n(k)}<\infty$. Let the value $\sup_{k\in K}\abs{\pi_n(k)} = a_n$. If $\limsup_{n} a_n = 0$, then we can set $x_n = \frac{1+n}{n}a_n$, so I'll assume that $\limsup_n a_n>\epsilon$ for some $\epsilon>0$ and derive a contradiction. Choose a subsequence $a_{n_j}$ such that $\lim_{j} a_{n_j} > \epsilon$. For each $a_{n_j}$, choose $y^j \in K$ such that $\abs{\pi_{n_j}(y^j)}>a_{n_j}-\epsilon/5$. I'll show that $K$ is not totally bounded. 
+        
+        Assume $K$ has finite covering of $\epsilon/5$ ball: $\{B_i(x^i, \epsilon/5)\}_{i=1}^N$. Since $x^i$s are in $c_0$, there exists $M$ such that $x^i_n<\epsilon/5$ for $n>M$ for all $i$. Choose $j_0$ such that $n_{j_0}>M$ and $y^{j_0}$ such that $\abs{\pi_{n_{j_0}}(y^{j_0})}>a_{n_{j_0}}-\epsilon/5$. Then $y\notin \cup_{i=1}^N B_i(x^i, \epsilon/5)$ since $\norm{x_i-y}>\frac{2}{5}\epsilon$ for all $i$. Therefore, $K$ is not pre-compact.
+        
+        ($\Leftarrow$) I'll show that $K$ is totally-bounded. For $\epsilon>0$, there exists $N$ such that $\abs{x_n}<\epsilon$ for all $n>N$. Therefore, $B(0, \epsilon)$ covers the tail part. Now, for $K$, cover the front $n\leq N$ part with ball with radius $\epsilon$ and let the set of balls $\{B_i((a^i_1, a^i_2, \ldots, a^i_N), \epsilon)\}_{i=1}^M$. This is possible since $\abs{k_i}<\abs{x_i}$ for all $k$ and $i$, so the front $N$ coordinates are uniformly bounded, forming a subset of direct product of compact set in each coordinate. I claim that $\{B_i((a^i_1, a^i_2, \ldots, a^i_N, 0, 0,\ldots), \epsilon)\}_{i=1}^M$ is the finite cover of $K$ since all the latter parts have absolutely value less than $\epsilon$. Therefore, $K$ is totally bounded and $K$ is pre-compact in Banach space $c_0$.
+        
+        \item[(b)] ($\Leftarrow$) Since $\norm{\lambda_n^2 x_n^*}\subset X^*$ and $\norm{\lambda_n^2 x_n^*}\leq \left(\sup_{j}\norm{x_j^*}\right)\abs{\lambda_n}^2\rightarrow 0$ as $n\rightarrow \infty$ with $\norm{Tx}\leq \sup_n\abs{\lambda_n^2 x_n^*(x)}$, $T$ is compact. by 3 (b).
+        
+        ($\Rightarrow$) Since $T$ is compact, there exists $\{x^*_n\}\subset X^*$ such that $\norm{x^*_n}\rightarrow 0$ and $\norm{Tx}\leq \sup_n \abs{x^*_n(x)}$ for all $x$ by 3 (b). Set $\lambda_n = \sqrt{\norm{x^*_n}}$ and $y^*_n = \frac{x^*_n}{\norm{x^*_n}}$ if $\norm{x^*_n}\neq 0$ and $0$ if $\norm{x^*_n} = 0$. Then, $\norm{y^*_n} \leq 1$ for all $n$ and $\lambda_n\rightarrow 0$. Also,
+        \begin{equation}
+            \norm{Tx}\leq \sup_n \abs{x^*_n(x)} = \sup_n \abs{\lambda_n}^2 \abs{y^*_n(x)}.
+        \end{equation}
+        
+        \item[(c)] Let $T\in \mathcal{B}_0(X,Y)$. By 6 (b), there exists $\lambda\in c_0$ and a bounded sequence $\{x_n^*\}$ in $X^*$ such that
+        \begin{equation}
+            \norm{Tx}\leq \sup_{n} \abs{\lambda(n)}^2 \abs{x_n^*(x)}.
+        \end{equation}
+        
+        Set $Z_0 = \{(\lambda(n) x_n^*(x)):x\in X\}$ and $Z = \cl Z_0$ for all $x\in X$. Since $Z_0$ is linear subspace of $c_0$, $Z$ is a closed subspace of $c_0$.
+        
+        Define $A:X\rightarrow Z$ follows: For $Tx = y$, $Ax = ((\lambda(n)x_n^*(x)))\in c_0$ since $\norm{\lambda(n) x^*_n}\rightarrow 0$ as $n\rightarrow \infty$. Also,
+        \begin{equation}
+            \norm{Ax} = \sup_n \abs{\lambda(n) x_n^*(x)} = \sup_n \left(\sqrt{\lambda(n)}\right)^2 \abs{x_n^*(x)}\leq \left(\sup_n\left(\sqrt{\lambda(n)}\right)^2 \norm{x_n^*}\right)\norm{x}
+        \end{equation}
+        with $\sup_n\left(\sqrt{\lambda(n)}\right)^2 \norm{x_n^*}<\infty$. Therefore $A$ is continuous. Since $(\sqrt{\lambda(n)})\in c_0$, $A$ is compact.
+        
+        For $B$, we should take care of limit points in $Z$. For $Z_0$, set $B(\lambda(n) x_n^*(x)) = Tx = y$. For a limit point $z$ such that $(\lambda(n) x_n^*(x_i))\rightarrow z$ in $c_0$, set $Bz = \lim_{i\rightarrow \infty} T(x_i)$: since 
+        \begin{equation}
+            \norm{T(x_i-x_j)}\leq \sup_n \abs{\lambda^2(n) x_n^*(x_i-x_j)}\leq \sup_n \abs{\lambda(n)} \sup_m \abs{\lambda(m) x_m^*(x_i-x_j)}=\sup_n \abs{\lambda(n)} \norm{(\lambda(m)x_m^*(x_i-x_j))}
+        \end{equation}
+        in Banach spaces, limit in $Y$ is well-defined. It also shows that $B$ is continuous if it is well-defined by setting $x_j = 0$. Furthermore, $B$ is compact since $\sqrt{\lambda(n)}\in c_0$ and for bounded sequence $\{\norm{\cdot}\}$ in $Z^*$,
+        \begin{equation}
+            \norm{B((\lambda(m) x_m^*(x)))} \leq \sup_{n} \left(\sqrt{\lambda(n)}\right)^2 \norm{(\lambda(m)x_m^*(x))}
+        \end{equation}
+        and the inequality holds for any limit point in $Z$ since $B$ is continuous.
+        
+        Now, I need to check the well-definedness of $B$.
+        
+        \begin{enumerate}
+            \item[1.] If $(\lambda(n) x_n^*(x_i))$ and $(\lambda(n) x_n^*(y_i))$ have same limit point in $Z$, is $\lim_{i\rightarrow \infty} T(x_i) = \lim_{i\rightarrow \infty} T(y_i)$?:
+            
+            \noindent The assumption implies that $\sup_n \abs{\lambda(n)} \abs{x_n^*(x_i-y_i)}\rightarrow 0$. Since $\norm{T(x_i-y_i)}\leq \sup_{n} \abs{\lambda(n)}^2 \abs{x_n^*(x_i-y_i)}$, $\norm{T(x_i-y_i)}\rightarrow 0$ as $i\rightarrow \infty$, so $\lim_{i\rightarrow \infty}T(x_i) = \lim_{i\rightarrow \infty} T(y_i)$
+            \item[2.] If $z_1 = (\lambda(n) x_n^*(x))\in Z_0$ and $(\lambda(n)x_n^*(x_i))\rightarrow z_1$, then $\sup_n \abs{\lambda(n)}\abs{x_n^*(x-x_i)}\rightarrow 0$ as $i\rightarrow \infty$ and by the same reason above, $\lim_{i\rightarrow \infty} T(x_i) = T(x)$.
+        \end{enumerate}
+        Therefore, $B$ is well-defined and by the construction of $A,B$, $T=BA$.
+    \end{enumerate}
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

@@ -1,0 +1,217 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\newcommand{\gra}{\textrm{gra }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW7}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{4.2}
+\begin{proof}
+Assume $\mathscr{X}$ is a Banach space. For a sequence $\{x_n\}$ in $\mathscr{X}$ satisfying $\sum\norm{x_n}<\infty$, there exists $N$ for each $\epsilon>0$ such that
+\begin{equation}
+    \norm{\sum_{i=1}^m x_i - \sum_{i=1}^n x_i} = \norm{\sum_{i=n+1}^m x_i}= \sum_{i=n+1}^m \norm{x_i}\leq \epsilon
+\end{equation}
+for $m>n>N$ since the sequence $a_n = \sum_{i=1}^n \norm{x_i}$ converges absolutely in $\varmathbb{R}$. Therefore, $\sum_{i=1}^n x_i$ is a Cauchy sequence in $\mathscr{X}$, so it converges in $\mathscr{X}$.
+
+Conversely, let $\{x_n\}$ is a Cauchy sequence in $\mathscr{X}$. For each $j\in\varmathbb{N}$, there exists $N_j$ such that $N_{j+1}>N_j$ and
+\begin{equation}
+    \norm{x_m-x_n}<\frac{1}{2^j}
+\end{equation}
+for $m>n\geq N_j$. Fix $x_{N_0} = x_1$. Then, we get
+\begin{equation}
+    \sum_{i=0}^\infty \norm{x_{N_{i+1}}-x_{N_i}} \leq \norm{x_1-x_{N_1}}+\sum_{j=1}^\infty \frac{1}{2^j} <\infty.
+\end{equation}
+Therefore,
+\begin{equation}
+    \sum_{i=0}^\infty (x_{N_{i+1}}-x_{N_i}) = -x_1 + \lim_{j\rightarrow \infty} x_{N_j} = x_c
+\end{equation}
+for some $x_c\in \mathscr{X}$, and $\lim_{j\rightarrow \infty} x_{N_j} = x_1+x_c$. 
+
+For $\epsilon>0$, there exists $N_0$ such that $\norm{x_m-x_n}<\epsilon$ for $m>n\geq N_0$ since $\{x_n\}$ is a Cauchy sequence, and there exists $j_0$ satisfying $N_{j}>N_0$ for $j\geq j_0$. Since $\norm{x_m-x_{N_j}} < \epsilon$ for all $j\geq j_0$, $\norm{x_m-(x_1+x_c)}\leq\epsilon$ for all $m\geq N_0$. Therefore, we get $\lim_{m\rightarrow \infty} x_m = x_1+x_c$.
+\end{proof}
+
+\noindent \textbf{4.4}
+\begin{proof}
+Let $\mathscr{X} = \varmathbb{R}^2$ and $\mathscr{M} = \{(x, 0):x\in\varmathbb{R}\}$. $A = \cup_{n=1}^\infty \{(n, y):1\leq y\leq 1+(1-1/n)\}$ is a closed set since each connected component is closed, but $A/\mathscr{M} = \{(0, y)+\mathscr{M}:1\leq y<2\}$, which is not closed in $\mathscr{X}/\mathscr{M}$. Therefore, $Q$ is not a closed map.
+
+The counterexample is easy to see. If $\mathscr{M} = 0$ or $\mathscr{X}$, then $Q$ is indeed a closed map. Now, I'll show that any natural map can not be a closed map if $\mathscr{M}$ is not $0$ or $\mathscr{X}$. Choose a nonzero point $m\in \mathscr{M}$ and $p \in \mathscr{M}^c$. Let $4r = \min\{\norm{p+\mathscr{M}}, \norm{m}\}$, then $r>0$ since $p\notin \mathscr{M}$. Now, set $A=\cup_{n=1}^\infty \overline{B}_{r-r/n}(n\cdot m)$, where $\overline{B}_{r}(x) = \{p:\norm{p-x}\leq r\}$, then each $\overline{B}_{r-r/n}(n\cdot m)$ is disjoint and closed: 
+If $x\in \overline{B}_{r-r/n_1}(n_1\cdot m) \cap \overline{B}_{r-r/n_2}(n_2\cdot m)$ for some $n_1\neq n_2$, then $\norm{m}\leq \norm{(n_1-n_2)m}\leq \norm{n_1 m -x} + \norm{x-n_2 m} <2r$, which is contradiction, so each ball is disjoint from each other. Also, for $x\in A^c$, if there exists two balls such that $B_{r/2}(x)\cap \overline{B}_{r-r/n_i}(n_i\cdot m)\neq \emptyset$ $i=1,2$, then again, $\norm{m}\leq \norm{(n_1-n_2)m}\leq \norm{n_1 m -x} + \norm{x-n_2 m} < 3r$, which is contradiction. Therefore, it only intersect with one ball, and by shrinking the radius, we get disjoint ball centered at $x$, so $A^c$ is open.
+
+Also, $Q(A) = \cup_{n=1}^\infty Q(\overline{B}_{r-r/n}(n\cdot m)) = \cup_{n=1}^\infty Q(\overline{B}_{r-r/n}(m)) = Q(\cup_{n=1}^\infty\overline{B}_{r-r/n}(m)) = Q(B_{r}(m))$, so it is open in $\mathscr{X}/\mathscr{M}$ since $Q$ is an open map. As $\mathscr{X}$ is connected as a convex set and $Q$ is continuous, $Q(\mathscr{X})=\mathscr{X}/\mathscr{M}$ is connected, so if $Q(B_{r}(m))$ is closed, it should be $\mathscr{X}/\mathscr{M}$. However, $p + \mathscr{M}\notin Q(B_r(m))$ since for any $x\in Q(B_r(m))$, $\norm{x+\mathscr{M}} = \norm{x-m + \mathscr{M}}\leq\norm{x - m}<r$, but $\norm{p+\mathscr{M}}>2r$. Therefore, $Q(A)$ can not be closed, and $Q$ is not a closed map.
+\end{proof}
+
+\noindent \textbf{5.4}
+\begin{proof}
+For each $F\in \oplus_q \mathscr{X}_i^*$ such that $F_i\in \mathscr{X}_i^*$, let $H:\oplus_q \mathscr{X}_i^*\rightarrow (\oplus_p \mathscr{X}_i)^*$ by $(H(F))(x) = \sum_i F_i(x_i)$ for $x\in \oplus_p \mathscr{X}_i$ with $x_i\in \mathscr{X}_i$, then it is linear. Also, it is well-defined: let's view the sum over $i\in I$ by the integral about the counting measure $\mu$ over $I$, then
+\begin{equation}\label{Eq:1}
+\abs{H(F)(x)} = \abs{\sum_i F_i(x_i)}\leq \sum_i \abs{F_i(x_i)}\leq \sum_i \norm{F_i}\norm{x_i}\leq \left(\sum_i \norm{F_i}^q\right)^{1/q}\left(\sum_i \norm{x_i}^p\right)^{1/p} = \norm{F}\norm{x}
+\end{equation}
+for $1<p$ using H\"older's inequality, and if $p=1$, again
+\begin{equation}
+\sum_i \abs{F_i(x_i)}\leq \sum_i \norm{F_i}\norm{x_i}\leq \left(\sup_i \norm{F_i}\right)\left(\sum_i \norm{x_i}\right) = \norm{F}\norm{x}
+\end{equation}
+Now, I need to show that $H$ is surjective isometry.
+
+For $G\in (\oplus_p \mathscr{X}_i)^*$, let $G_i = G|_{\mathscr{X}_i}$, then is is a dual element in $\mathscr{X}_i^*$. More precisely, $G_i = G \circ E_i$ where $E_i$ is the extension from $\mathscr{X}_i$ to $\oplus_p \mathscr{X}_i$ by sending $x_i$ to the element whose coordinates are all $0$ except $i$th coordinate by $x_i$. Since $E_i$ is linear and bounded, $G_i$ is linear and continuous. Now, let $F\in\prod_i \mathscr{X}_i^*$ such that $i$th coordinate is $G_i$. For any finite $G_j$s, my claim is $\sum_j \norm{G_j(x)}^q\leq \norm{G}^q$ for $1<q<\infty$ and $\sup_j\norm{G_j}\leq \norm{G}$ for $q=\infty$. I'll first check the case $1<q<\infty$. Fix $\epsilon>0$. For each $G_j$, there exists $x_j\in \mathscr{X}_j$ such that $\norm{x_j}\leq 1$ and $\abs{G_j(x_j)}^q+\epsilon/j > \norm{G_j}^q$. By putting appropriate $e^{i\theta_j}$, we get $\abs{G_j(x_j)} = G_j(e^{i\theta_j}x_j)$, so I'll assume $G_j(x_j)>0$. Then,
+\begin{equation}\label{Eq:2}
+    \sum_j \norm{G_j}^q < \epsilon + \sum_j (G_j(x_j))^q \leq \epsilon + (G(\sum_j E_j(x_j)))^q\leq \epsilon + \norm{G}^q
+\end{equation}
+This is true for all $\epsilon>0$, so $\sum_i \norm{G_i}^q\leq \norm{G}^q$. For $q=\infty$, $\norm{G_j} \leq \norm{G}$ for all $j$ since $\norm{G_j}$ takes sup of $G(x)$ for only $j$th coordinate, but $\norm{G}$ takes sup of all element in $\oplus_p \mathscr{X}_i$. Therefore, $\sup_j \norm{G_j}\leq \norm{G}$. Now, set $F\in\oplus_q \mathscr{X}_i^*$ with $G_i$ on $i$th coordinate.
+
+Finally, I need to show that $H(F) = G$. Choose $x\in \oplus_p \mathscr{X}_i$, then only countably many $x_i$s are nonzero since there are only finite $i$s satisfying $\norm{x_i}>1/n$ for each $n$. For such countable sequence $x_{i_j}$, $H(F)(x_{i_j}) = G(x_{i_j})$, so $H(F)(x) = G(x)$.
+
+Therefore, $H$ is surjective. Furthermore, \eqref{Eq:1} and \eqref{Eq:2} shows that it is an isometry.
+%%since $i$th coordinate of $H(G)$ is same as $G_i$.
+\end{proof}
+
+
+\noindent \textbf{12.6}
+\begin{proof}
+Let's give a norm on $C(X)$ by $\norm{f} = \max\{\abs{f(x)}:x\in X\}$ for $f\in C(X)$. It is well-defined since any continuous function is bounded on compact set $X$. As $E$ is a closed set in a compact set, it is compact and the same norm can be applied to $C(E)$. 
+
+Now, Let $F:C(X)\rightarrow C(E)$ by $F(f) = f|E$. Then $F$ is bounded linear surjection. Therefore, the image of $B_X(1) = \{f:\norm{f}< 1\}$ under $F$ is open in $C(E)$ by the open mapping theorem, so there exists $c>0$ such that $\{g:\norm{g}\leq c\}\subset F(B_X(1))$. For each $g\in C(E)$, $c\frac{g}{\norm{g}}\in F(B_X(1))$, so there exists $f$ such that $f|E = c\frac{g}{\norm{g}}$ with $\norm{f} \leq 1$, which means that if we set $f' = \frac{\norm{g}}{c}f$, then $f'|E = g$ and $\norm{f'} \leq \frac{\norm{g}}{c}$.
+\end{proof}
+
+\noindent \textbf{12.8}
+I'll first prove a proposition in the book.
+\begin{proposition}
+If $\mathscr{X}$ and $\mathscr{Y}$ are normed spaces and $A:\mathscr{X}\rightarrow\mathscr{Y}$ is a linear transformation, then $\gra A$ is closed if and only if whener $x_n\rightarrow 0$ and $Ax_n\rightarrow y$, it must be that $y=0$.
+\end{proposition}
+\begin{proof}
+If $\gra A$ is closed, then $(x_n, Ax_n)\rightarrow (0, y)$ means that $y\in \ran A$. Since $A(0) = 0$, $y$ must be $0$.
+
+Now, assume $x_n\rightarrow 0$ and $Ax_n\rightarrow y$, then $y=0$. Let $(x_n, Ax_n)\rightarrow (x,y)$. Since $x_n-x\rightarrow 0$ and $A(x_n-x)\rightarrow y-Ax$, $y-Ax = 0$, so $Ax = y$ implying $\gra A$ is closed.
+\end{proof}
+
+\begin{proof}
+Let $h^x:L^p\rightarrow L^1$ for fixed $y\in \mathscr{X}$ by setting $h^x(f)(y) = k(x,y)f(y)$ for $f\in L^p$. Using the above proposition and closed graph theorem, we get $h^x$ is bounded since $f_n\rightarrow 0$ in $L^p$ implies that there exists a subsequence $f_{n_j}\rightarrow 0$ a.e. and $k(x,y)f_{n_j}(y)\rightarrow 0$ a.e. $y$. Therefore, there exists $C_x$ for a.e. $x$ satisfying $C_x<\infty$ and
+\begin{equation}
+    \norm{k(x,y)f(y)}_1 = \int \abs{k(x,y)f(y)}d\mu(y) < C_x \norm{f}_p.
+\end{equation}
+Again, assume there exists $f_n\rightarrow 0$ in $L^p$ and $Kf_n\rightarrow l$ in $L^p$ for some $l\in L^p$ to use closed graph theorem. Then, there exists a subsequence $f_{n_j}$ such that $Kf_{n_j}\rightarrow l$ a.e. $x$. Since
+\begin{equation}
+    \abs{Kf_n(x)} = \abs{\int k(x,y)f(y)d\mu(y)} < C_x\norm{f_{n_j}}_p\rightarrow 0
+\end{equation}
+a.e. $x$, $l = 0$ a.e. $x$ and $K$ is a bounded operator.
+\end{proof}
+
+\noindent \textbf{13.2}
+\begin{proof}
+First, I'll show that $\ran E\cap \ker E = (0)$. If $x\neq 0$ and $x\in \ran E$, $x = Ex\neq 0$, so $\ran E\cap \ker E = (0)$.
+
+I'll use closed graph theorem to show $E$ is continuous. Assume $x_n\rightarrow 0$ and $Ex_n\rightarrow y$ for some $y$ in $\mathscr{X}$. Since $Ex_n\in \ran E$ for all $n$, $y\in \ran E$. Also, $Ex_n-x_n\rightarrow y$ and $Ex_n-x_n\in \ker E$ for all $n$, so $y\in \ker E$. Since $\ran E\cap \ker E = (0)$, $y = 0$, so $E$ is continuous.
+
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

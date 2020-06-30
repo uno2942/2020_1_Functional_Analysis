@@ -1,0 +1,217 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node, auto-pst-pdf}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\newcommand{\gra}{\textrm{gra }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{Functional Analysis HW8}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{6.3}
+
+\begin{proof}
+Let's construct a surjective linear isometry $\phi$ from $l^1$ to $c^*$. For $b\in l^1$, construct $f\in c^*$ by for setting $f(a) = (\lim_n a(n))b(1) + \sum_{i=1}^\infty a(i)b(i+1)$ each $a\in c$, then $\abs{f(a)}\leq \norm{a}_{c}\norm{b}_{l^1}$, so it is well-defined and $\norm{f}\leq \norm{b}_{l^1}$. Conversely, fixing $\epsilon>0$ and by setting $a\in c$ by 
+\begin{equation}
+    a(n)=\begin{cases}
+    \abs{b(n+1)}/b(n+1) & 1\leq n\leq n_0 \\
+    \abs{b(1)}/b(1) & n>n_0.
+    \end{cases}
+\end{equation}
+(If $b(i) = 0$, then replace $\abs{b(i)}/b(i)$ to $0$.) Choose large enough $n_0$ making $\sum_{i=n_0+1}^\infty \abs{b(i)}<\epsilon$, then we get
+\begin{equation}
+    \abs{f(a) -\sum_{i=1}^{n_0} \abs{b(i)}} =\abs{\sum_{i=n_0+1}^{\infty} \left(\abs{b(1)}/b(1)\right)b(i)}\leq \sum_{i=n_0+1}^\infty \abs{b(i)}<\epsilon.
+\end{equation}
+Therefore, $\norm{f} = \norm{b}_{l^1}$ and $\phi$ is a isometry. The linearity is trivial.
+
+Now, I'll show the surjectivity. As a notation, set $e_i$ be an element in $c$ such that $e_i(n)=0$ but $1$ at $n=i$. For $f\in c^*$, set $b(i+1)=f(e_i)$ for $i\geq 1$, and $b(1) = f((1,1,1,\ldots) - \sum_{i=2}^\infty b(i)$. This is well-defined since for any $m>2$, $\sum_{i=2}^m \abs{b(i)} = f\left(\sum_{i=1}^{m-1} \left(\abs{b(i+1)}/b(i+1)\right)e_i\right)\leq \norm{f}$. (Again, set the coefficient of $e_i$ is $0$ if $b(i+1) = 0$.) For $a\in c$ with $\alpha = \lim_n a_n$
+\begin{equation}
+\begin{split}
+    (\phi(b))(a) &= \alpha b(1) + \sum_{i=1}^\infty a(i)b(i+1) \\
+    &=\alpha b(1)+\alpha\sum_{i=2}^\infty b(i) + \sum_{i=1}^\infty (a(i)-\alpha)b(i+1)\\
+    &=\alpha f((1,1,\ldots) + \sum_{i=1}^\infty (a(i)-\alpha)f(e_i) \\
+    &=\alpha f((1,1,\ldots)) + f(a-\alpha (1,1,\ldots)) = f(a).
+\end{split}
+\end{equation}
+(Since $(a-\alpha(1,1,\ldots))\in c_0$, $\sum_{i=1}^n (a(i)-\alpha)e_i$ forms a Cauchy sequence in $c$, so $\sum_{i=1}^\infty (a(i)-\alpha)f(e_i) = f(a-\alpha (1,1,\ldots))$ as $f$ is a continuous function.) Therefore, $\phi$ is a surjective linear isometry and $c^*$ is isometrically isomorphic to $l^1$.
+
+I'll prove that $c$ and $c_0$ are not isometrically isomorphic. Assume there exists a surjective linear isometry $\varphi$ from $c_0$ to $c$. Since it is surjective, there exists $a\in c_0$ such that $\varphi(a) = (1,1,1,1,\ldots)$. Since it is a isometry, $\norm{a} = 1$ and it means there exists $j_0$ such that $\abs{a(j_0)} = 1$ since $\abs{a(n)}\rightarrow 0$ as $n\rightarrow \infty$. Now, choose sufficiently large $n_0$ such that $\abs{a(n_0)}<1/4$ and set $b\in c_0$ such that all $b(n)=0$ but $b(n_0) = 3/4$. Then $a+b\in c_0$ and $\norm{a+b} = 1$. Since $\norm{b} = \norm{\varphi(b)}$, there exists $j_1$ such that $\abs{(\varphi(b))(j_1)}>1/2$ and it means that $(\varphi(a+\frac{\abs{(\varphi(b))(j_1)}}{(\varphi(b))(j_1)}b))(j_1) = 1 + \abs{\varphi(b)(j_1)} >1$, which is a contradiction. Therefore, there is no surjective linear isometry from $c_0$ to $c$.
+\end{proof}
+
+\noindent \textbf{6.7}
+\begin{proof}
+Assume $\mu$ is a measure satisfying the condition. First assume again that $\mu$ is a positive measure. For $f_n(x)=1-(1-x)^n/n$ for $n\in \varmathbb{N}$ in $C[0,1]$, $0\leq f_{n_1}\leq f_{n_2}$ for $n_1<n_2$, so by MCT, $\int \lim_n f_nd\mu = \lim_n \int f_nd\mu$, but LHS is $0$ and RHS is $1$, which is a contradiction.
+
+Now, assume $\mu$ is a signed measure. Use the Jordan decomposition to write $\mu=\mu^+-\mu^-$, where $\mu^+$ is a positive variation and $\mu^-$ is a negative variation. Since $0\leq f_n\leq 1$, WLOG, I'll assume that $\int f_nd\mu^-$ is bounded by $\mu^-([0,1])<\infty$ for all $n$. Again, apply MCT to two integrals, then we get $\lim_n \int f_n d\mu^+ = \int \lim_n f_n d\mu^+ = \int 1 d\mu^+\in [0,\infty]$ and $\lim_n \int f_n d\mu^- = \int \lim_n f_n d\mu^- = \int 1 d\mu^-\in [0,\infty)$, so
+\begin{equation}
+    1=\lim_n\left(\int f_n d\mu\right) = \lim_n\left(\int f_n d\mu^+ + \int f_n d\mu^-\right) = \int\lim_n f_n d\mu^+ + \int\lim_n f_n d\mu^- = \int 1 d\mu = 0
+\end{equation}
+
+Finally assume $\mu$ is a complex measure and write $\mu=\mu_r+i\mu_i$ where $\mu_r$ and $\mu_i$ are finite signed measure. Repeating to apply MCT as above, we get $1 = \lim_n \int f_n d\mu = \int 1d\mu = 0$. Therefore, there is no such measure.
+\end{proof}
+
+\noindent \textbf{14.2}
+\begin{proof}
+Define $F_n:l^q\rightarrow \varmathbb{F}$ by setting $F_n(y) = \sum_{j=1}^\infty x_n(j)y(j)$. Since $\abs{\sum_{j=1}^\infty x_n(j)y(j)}\leq \norm{x_n}_p\norm{y}_q<\infty$, it is well-defined and $\norm{F_n}\leq \norm{x_n}_p$. Conversely, if I set $y(j) = x_n(j)^{p-1}/\textrm{arg}(x_n(j)^p)$ (If $\varmathbb{F}=\varmathbb{R}$, then replace $\textrm{arg}$ to $\textrm{sgn}$) if $x_n(j)\neq 0$ and $0$ if $x_n(j) = 0$, then
+\begin{equation}
+    \norm{y}_q = \left(\sum_j \abs{x_n(j)}^{q(p-1)}\right)^{1/q} = \left(\left(\sum_j \abs{x_n(j)}^{p}\right)^{1/p}\right)^{p/q} = \norm{x_n}_p^{p-1}<\infty
+\end{equation}
+and
+\begin{equation}
+    F_n(y) = \sum_{j=1}^\infty x_n(j)^p/\textrm{arg}(x_n(j)^p) = \sum_{j=1}^\infty \abs{x_n(j)}^p = \norm{x_n}_p^p,
+\end{equation}
+so $\norm{F_n} = \norm{x_n}_p$. (If $x_n = 0$, then trivially $\norm{F_n} = 0$.) Let $A=\{F_n\}_{n=1}^\infty \subset (l^q)^*$.
+
+Now, assume $F_n(y)\rightarrow 0$ for every $y\in l^q$. Since $l^q$ is a Banach space and $\sup\{\abs{F_n(y)}:F_n\in A\}<\infty$ for all $y\in l^q$, $A$ is a bounded set, so $\sup_n \norm{F_n} = \sup_n \norm{x_n}_p<\infty$. Also, taking $y\in l^q$ be $0$ in every coordinate but $1$ on $j_0$th coordinate, we get $F_n(y) = \sum_{j=1}^\infty x_n(j)y(j) = x_n(j_0)\rightarrow 0$ for all $j_0\geq 1$.
+
+Conversely, assume $\sup_n\norm{x_n}_p<M$ for some $M<\infty$ and $x_n(j)\rightarrow 0$ for every $j\geq 1$. Fix $\epsilon>0$ and set $N_1$ such that $\left(\sum_{j=N_1}^\infty \abs{y(j)}^q\right)^{1/q}<\epsilon$. For $1\leq j< N_1$, choose sufficiently large $N_2$ such that $\left(\sum_{j=1}^{N_1-1} \abs{x_n(j)}^p\right)^{1/p}<\epsilon$ for $n\geq N_2$. Now, we get
+\begin{equation}
+\begin{split}
+    \abs{\sum_{j=1}^\infty x_n(j)y(j)} &\leq \abs{\sum_{j=1}^{N_1-1} x_n(j)y(j)} + \abs{\sum_{j=N_1}^\infty x_n(j)y(j)}\\
+    &\leq \left(\sum_{j=1}^{N_1-1} \abs{x_n(j)}^p\right)^{1/p}\norm{y}_q + \norm{x_n}_p\left(\sum_{i=N_1}^\infty \abs{y(j)}^q\right)^{1/q}\\
+    &\leq \epsilon(\norm{y}_q+\norm{x_n}_p)\leq\epsilon(\norm{y}_q+M)
+\end{split}
+\end{equation}
+for $n\geq N_2$. (In the middle step, I used H\"older's inequality.) Therefore, $\sum_{j=1}^\infty x_n(j)y(j)\rightarrow 0$ as $n\rightarrow \infty$ for all $y\in l^q$.
+\end{proof}
+
+\noindent \textbf{14.8}
+\begin{proof}
+Since $\lim_n A_nx = Ax$ in the proof and $\norm{\cdot}$ is continuous, $\lim_n \norm{A_n x} = \liminf_n \norm{A_n x} = \norm{A x}$. Since $\norm{A_n x}\leq \norm{A_n}\norm{x}$, $\norm{A x}\leq \liminf_n \norm{A_n}$ for all $x$ such that $\norm{x}\leq 1$, so $\norm{A}\leq \liminf_n \norm{A_n}$.
+\end{proof}
+
+\noindent \textbf{3.4}
+\begin{proof}
+\begin{enumerate}
+    \item[(a)] I'll first show the claim:
+    \begin{claim}
+    If $x_0\in \mathscr{X}$ and $\alpha\in \varmathbb{F}$ such that $\alpha\neq 0$, and if $U$ is an open set in TVS $\mathscr{X}$, then $x_0+U$ and $\alpha U$ is open.
+    \end{claim}
+    \begin{proof}
+    I'll first show the translation invariant property. Since $f(x,y)\rightarrow x+y$ is continuous, $f^{-1}(U)$ is open in $\mathscr{X}\times\mathscr{X}$. If $U=\emptyset$, then there is nothing to prove, so assume $U\neq \emptyset$. For $y_0\in U+x_0$, $(-x_0, y_0)\in f^{-1}(U)$, so there exists a open set $(-x_0, y_0)\in V_1\times V_2\subset f^{-1}(U)$ such that $V_1,V_2$ are open in $\mathscr{X}$. $f((-x_0, V_2)) = V_2-x_0\subset U$, so $V_2\subset U+x_0$ and $V_2$ is a open neighborhood of $y_0$. Therefore, $U+x_0$ is open.
+    
+    The proof for multiplication case is same as addition case since $\alpha$ is a unit in $\varmathbb{F}$.
+    \end{proof}
+    
+    Now, I'll prove the main result. For open connected subset $G$, choose a point $x_0\in G$ and consider $G-x_0$. Since $f_1(x) = x-x_0$, $f_2(x) = x+x_0$ are continuous and inverse to each other, both are homeomoprhism, so $G-x_0$ is homeomorphic to $G$. WLOG, I'll assume that $G$ contains $0$.
+    
+    Now, I'll show that $G$ is locally arc connected. As translation is homeomorphism, it is enough to show the locally arc connectedness at $0$. Choose a open neighorhood $U\subset G$ of $0$. Let $h(t,x) = tx$ for $t\in \varmathbb{F}$ and $x\in \mathscr{X}$, and consider $h^{-1}(U)$. Since $(0,0)\in h^{-1}(U)$, there exists $(0,0)\in (-\epsilon, \epsilon)\times V\subset h^{-1}(U)$ such that $\epsilon>0$ and $V$ is an open set in $\mathscr{X}$. Now, set $Q = \cup_{a< \epsilon}aV$, then it is a union of open sets containing $0$ so open and $h((-\epsilon, \epsilon)\times V)\subset U$ implies that $Q\subset U$. Furthermore, there exists a path $f$ from $0$ to $y$ for all $y\in Q\setminus \{0\}$ since $f(t) = ty$ is a continuous function and $ty \in \cup_{a<t\epsilon}aV\subset Q$, so $ty\in Q$ for all $t\in [0,1]$. Furthermore, $f$ is bijective continuous, $[0,1]$ is compact and $\mathscr{X}$ is Hausdorff, so $f$ is homeomorphism. Therefore, $Q\subset U$ is open and arc connected.
+    
+    I'll use arc-connected components to show that $G$ is arc connected. Before that, let's check whether arc-connectedness forms a equivalence relation. Only non-trivial part is that joining two arc forms a arc. Let $f_1,f_2$ be two arcs. By joining the arcs as paths, we get bijective continuous function on compact set which maps to Hausdorff space. Therefore, it forms a arc.
+    
+    I'll show that $G$ is arc connected. Let $P$ be a arc connected component containing $0$, then $P$ is open: for any $p\in P$, there exists a arc connected neighborhood of $p$ in $G$, and $P$ should contain the neighborhood. If $P\neq G$, then union the other path connected components. Now, $G$ is the disjoint union of two open set, which contradicts the connectedness. Therefore, $P=G$.
+    \item[(b)] Let $A=\{x:f(x)>0\}$, $B=\{x:f(x)<0\}$. Since $f$ is non-zero, $A,B\neq \emptyset$. As $f$ is continuous, $A,B$ are open. Also, for $x,y\in A$, $p:[0,1]\rightarrow \mathscr{X}$ by $p(t)=(1-t)x+ty$ is continuous, and the image is contained in $A$ since $f((1-t)x+ty)=(1-t)f(x)+tf(y)>0$. Therefore, $A$ is connected in $\mathscr{X}\setminus \ker f$. By the same reason, $B$ is also connected in $\mathscr{X}\setminus \ker f$.
+    
+    Since $A,B$ are open in $\mathscr{X}\setminus \ker f$ and $A\cup B = \mathscr{X}\setminus \ker f$ with $A\cap B=\emptyset$, $\mathscr{X}\setminus \ker f$ is not connected, so there exists at least two connected components. Since $A$ and $B$ are connected in $\mathscr{X}\setminus \ker f$, it is the two components.
+\end{enumerate}
+\end{proof}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
